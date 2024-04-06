@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useNavigate, Outlet } from 'react-router-dom';
-import { TokenContext } from '../../App';
+// import { TokenContext } from '../../App';
 
 export const SecureRoute = ({ protMode }) => {
-    const { token, setToken } = React.useContext(TokenContext);
+    // const { token, setToken } = React.useContext(TokenContext);
     const navigate = useNavigate();
 
     useEffect(() => {
