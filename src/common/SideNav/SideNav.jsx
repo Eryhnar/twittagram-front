@@ -1,4 +1,5 @@
 import { NavButton } from "../NavButton/NavButton";
+import { ToggleButton } from "../ToggleButton/ToggleButton";
 import "./SideNav.css";
 
 export const SideNav = () => {
@@ -68,6 +69,7 @@ export const SideNav = () => {
             }
                 path="/profile"
             />
+            <ToggleButton />
             light/dark mode
         </div>
     );

@@ -1,0 +1,72 @@
+/* .default-toggle-rail {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+    width: 10rem;
+    background-color: aqua;
+    border-radius: 0.5rem;
+    border: 0.25rem solid black;
+    transition: ease 0.5s;
+}
+.default-toggle-rail-active {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    width: 10rem;
+    background-color: red;
+    border-radius: 0.5rem;
+    border: 0.25rem solid black;
+}
+
+.default-indicator-button {
+    background-color: burlywood;
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+}
+.default-indicator-button-active {
+    background-color: purple;
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+} */
+
+.default-toggle-rail {
+    display: flex;
+    flex-direction: row;
+
+    width: 10rem;
+    background-color: aqua;
+    border-radius: 0.5rem;
+    border: 0.25rem solid black;
+    /* transition: ease 0.5s; */
+}
+.default-toggle-rail-active {
+    display: flex;
+    flex-direction: row;
+
+    width: 10rem;
+    background-color: red;
+    border-radius: 0.5rem;
+    border: 0.25rem solid black;
+}
+
+.default-indicator-button {
+    background-color: burlywood;
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0;
+    transition: margin-left 1s ease;
+}
+
+.default-indicator-button-active {
+    background-color: purple;
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-left: calc(100% - 1rem); 
+    transition: margin-left 1s ease;
+}
