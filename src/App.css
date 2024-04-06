@@ -5,3 +5,8 @@
     width: 100vw;
 }
 
+.App-content-grid {
+    display: grid;
+    grid-template-columns: 1fr 15rem;
+    /* grid-template-areas: "header" "main"; */
+}
