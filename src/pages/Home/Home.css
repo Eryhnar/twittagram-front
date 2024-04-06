@@ -1,5 +1,6 @@
 .home-container{
     min-height: 80svh;
+    background-color: blueviolet;
 }
 
 @media (min-width: 768px){
