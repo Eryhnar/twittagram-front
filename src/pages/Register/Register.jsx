@@ -6,6 +6,7 @@ import { NavButton } from "../../common/NavButton/NavButton";
 import { useState } from "react";
 import { RegisterService } from "../../services/apiCalls";
 import { validateEmail, validatePassword, validateUserHandle } from "../../utils/validateRegister";
+import { InfoButton } from "../../common/InfoButton/InfoButton";
 
 export const Register = () => {
 
