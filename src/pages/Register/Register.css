@@ -41,6 +41,10 @@
     
 }
 
-.name-field-error {
+.register-field-error {
 
+}
+
+.register-msg {
+    color: red;
 }
