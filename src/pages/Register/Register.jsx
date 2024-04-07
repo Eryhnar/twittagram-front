@@ -6,6 +6,12 @@ export const Register = () => {
             <div className="register-title">
                 Register
             </div>
+            <div className="input-field">
+                
+            </div>
+            <div className="input-field"></div>
+            <div className="input-field"></div>
+            <div className="input-field"></div>
             
         </div>
     )
