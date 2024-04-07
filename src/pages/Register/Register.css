@@ -1,0 +1,59 @@
+.register-design {
+    min-height: 90svh;
+}
+
+.register-card {
+
+}
+.register-card h2 {
+    /* margin: 0; */
+}
+
+.register-inputs {
+
+}
+
+.register-field {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* place-content: center; */
+    /* place-items: center; */
+    /* background-color: violet; */
+}
+
+.register-input-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.register-input-area p{
+    position: absolute;
+    right: calc(50% + 6rem);
+    text-align: right;
+}
+
+.register-input {
+    
+}
+
+.register-field-error {
+    border: 0.1rem solid red;
+}
+
+.register-msg {
+    color: red;
+}
+
+.register-field-error-msg {
+    color: red;
+    height: 1rem;
+}
+
+.register-empty-error {
+    height: 1rem;
+}

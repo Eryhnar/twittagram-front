@@ -3,7 +3,7 @@ import "./Header.css";
 
 export const Header = () => {
     return (
-        <div className="header">
+        <div className="header-design">
             {/* <div className="header-title"> */}
                 <NavButton
                     title="Twittagram"
