@@ -5,7 +5,7 @@ import { CButton } from "../../common/CButton/CButton";
 import { NavButton } from "../../common/NavButton/NavButton";
 import { useState } from "react";
 import { RegisterService } from "../../services/apiCalls";
-import { isValidHandle, processHandle } from "../../utils/isValidateHandle";
+import { validateEmail, validatePassword, validateUserHandle } from "../../utils/validateRegister";
 
 export const Register = () => {
 
@@ -29,26 +29,50 @@ export const Register = () => {
     };
 
     const validateInput = (userName, email, password) => {
-        if (userName === "" || email === "" || password === "") {
-            setErrorMsg(prevState => ({
-                ...prevState,
-                userNameError: "Field is required",
-                emailError: "Field is required",
-                passwordError: "Field is required"
-            }));
-        }
-        processHandle(userName)
-        if (!isValidHandle(userName)) {
-            setErrorMsg(prevState => ({
-                ...prevState,
-                userNameError: "Invalid handle"
-            }));
-        };
+        // if (userName === "" || email === "" || password === "") {
+        //     setErrorMsg(prevState => ({
+        //         ...prevState,
+        //         userNameError: "Field is required",
+        //         emailError: "Field is required",
+        //         passwordError: "Field is required"
+        //     }));
+        // }
+        // processHandle(userName)
+        // if (!isValidHandle(userName)) {
+        //     setErrorMsg(prevState => ({
+        //         ...prevState,
+        //         userNameError: "Invalid handle"
+        //     }));
+        // };
 
+
+        // setErrorMsg(prevState => ({
+        //     ...prevState,
+        //     userNameError: validateUserHandle(userName),
+        //     emailError: validateEmail(email),
+        //     passwordError: validatePassword(password)
+        // }));
+        return {
+            userNameError: validateUserHandle(userName),
+            emailError: validateEmail(email),
+            passwordError: validatePassword(password)
+        };
     }
 
     const registerUser = async () => {
         try {
+            // validateInput(user.userName, user.email, user.password);
+            // if (errorMsg.userNameError !== "" || errorMsg.emailError !== "" || errorMsg.passwordError !== "") {
+            //     return;
+            // }
+
+            const errors = validateInput(user.userName, user.email, user.password);
+            setErrorMsg(errors);
+
+            if (errors.userNameError || errors.emailError || errors.passwordError) {
+                return;
+            }
+
             const response = await RegisterService(user);
             setErrorMsg(prevState => ({
                 ...prevState,
@@ -86,7 +110,7 @@ export const Register = () => {
                             <div className="register-input-area">
                                 <p>Handle</p>
                                 <CInput
-                                    className="register-input"
+                                    className={`register-handle-field ${errorMsg.userNameError ? "register-field-error" : ""}`}
                                     type="name"
                                     placeholder="John"
                                     name="userName"
@@ -95,14 +119,14 @@ export const Register = () => {
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
                             </div>
-                            <div className="register-field-error">This is the public userhandle "@johndoe"</div>
+                            <div className={errorMsg.userNameError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.userNameError}</div>
 
                         </div>
                         <div className="register-field">
                             <div className="register-input-area">
                                 <p>Email</p>
                                 <CInput
-                                    className="register-input"
+                                    className={`register-email-field ${errorMsg.emailError ? "register-field-error" : ""}`}
                                     type="email"
                                     placeholder="user@domain.com"
                                     name="email"
@@ -111,13 +135,14 @@ export const Register = () => {
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
                             </div>
-                            <div className="register-field-error">hi</div>
+                            {/* <div className="register-field-error">hi</div> */}
+                            <div className={errorMsg.emailError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.emailError}</div>
                         </div>
                         <div className="register-field">
                             <div className="register-input-area">
                                 <p>Password</p>
                                 <CInput
-                                    className="register-input"
+                                    className={`register-password-field ${errorMsg.passwordError ? "register-field-error" : ""}`}
                                     type="password"
                                     placeholder="password"
                                     name="password"
@@ -126,7 +151,7 @@ export const Register = () => {
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
                             </div>
-                            <div className="register-field-error">hi</div>
+                            <div className={errorMsg.passwordError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.passwordError}</div>
                         </div>
                         <CButton
                             className="register-button"

@@ -1,12 +1,13 @@
-import { isValidHandle } from "./isValidateHandle";
-import { isValidEmail } from "./isValidateEmail";
-import { isValidPassword } from "./isValidatePassword";
+import { isValidHandle, processHandle } from "./isValidHandle";
+import isValidEmail  from "./isValidEmail";
+import isValidPassword  from "./isValidPassword";
 
 export const validateUserHandle = (handle) => {
     if (handle === "") {
         return "Handle cannot be empty";
     }
-    if (!isValidHandle(handle)) {
+    const processedHandle = processHandle(handle);
+    if (!isValidHandle(processedHandle)) {
         return "Invalid Handle";
     }
     return "";

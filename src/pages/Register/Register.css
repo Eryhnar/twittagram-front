@@ -42,9 +42,18 @@
 }
 
 .register-field-error {
-
+    border: 0.1rem solid red;
 }
 
 .register-msg {
     color: red;
+}
+
+.register-field-error-msg {
+    color: red;
+    height: 1rem;
+}
+
+.register-empty-error {
+    height: 1rem;
 }
