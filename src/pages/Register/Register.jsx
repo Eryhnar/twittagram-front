@@ -5,6 +5,7 @@ import { CButton } from "../../common/CButton/CButton";
 import { NavButton } from "../../common/NavButton/NavButton";
 import { useState } from "react";
 import { RegisterService } from "../../services/apiCalls";
+import { isValidHandle, processHandle } from "../../utils/isValidateHandle";
 
 export const Register = () => {
 
@@ -13,7 +14,12 @@ export const Register = () => {
         email: "",
         password: ""
     });
-    const [msgError, setMsgError] = useState("");
+    const [errorMsg, setErrorMsg] = useState({
+        userNameError: "",
+        emailError: "",
+        passwordError: "",
+        serverError: ""
+    });
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
@@ -22,15 +28,40 @@ export const Register = () => {
         }));
     };
 
+    const validateInput = (userName, email, password) => {
+        if (userName === "" || email === "" || password === "") {
+            setErrorMsg(prevState => ({
+                ...prevState,
+                userNameError: "Field is required",
+                emailError: "Field is required",
+                passwordError: "Field is required"
+            }));
+        }
+        processHandle(userName)
+        if (!isValidHandle(userName)) {
+            setErrorMsg(prevState => ({
+                ...prevState,
+                userNameError: "Invalid handle"
+            }));
+        };
+
+    }
+
     const registerUser = async () => {
         try {
             const response = await RegisterService(user);
-            setMsgError(response.message);
+            setErrorMsg(prevState => ({
+                ...prevState,
+                serverError: response.message
+            }));
 
             // navigate("/login");
         } catch (error) {
             // console.log(error.message);
-            setMsgError(error.message);
+            setErrorMsg(prevState => ({
+                ...prevState,
+                serverError: error.message
+            }));
         }
         // console.log("Registering user");
     }
@@ -102,7 +133,7 @@ export const Register = () => {
                             title="Register"
                             onClickFunction={registerUser}
                         />
-                        <div className="register-msg">{msgError}</div>
+                        <div className="register-msg">{errorMsg.serverError}</div>
                         <NavButton
                             className="login-redirect"
                             title="Already registered? Click here to log in!"
