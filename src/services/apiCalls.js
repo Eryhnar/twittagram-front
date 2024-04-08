@@ -43,3 +43,21 @@ export const LoginService = async (credentials) => {
 
     return parsedResponse;
 }
+
+export const getTimelineService = async (token) => {
+    const response = await fetch(root + "posts/timeline", {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}

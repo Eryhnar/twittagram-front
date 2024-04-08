@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState, useEffect } from "react";
+import { getTimelineService } from "../../services/apiCalls";
 
 export const Home = () => {
     const rdxUser = useSelector(userData);
@@ -13,28 +14,13 @@ export const Home = () => {
     });
     const [retries, setRetries] = useState(3);
     const [isLoading, setIsLoading] = useState(true);
-
-    // const getTimeline = async () => {
-    //     try {
-    //         const response = await getTimelineService(token);
-    //         console.log(response);
-    //     } catch (error) {
-    //         if (retries > 0) {
-    //             setRetries(prevState => prevState - 1);
-    //             getTimeline();
-    //         } else {
-    //             setErrorMsg({message: error.message, success: false});
-    //         }
-    //     }
-    // }
-
-    // (token && retries > 0) && getTimeline();
+    const [timeline, setTimeline] = useState([]);
 
     useEffect(() => {
         const fetchTimeline = async () => {
             try {
                 const response = await getTimelineService(token);
-                console.log(response);
+                setTimeline(response.data);
             } catch (error) {
                 if (retries > 0) {
                     setRetries(prevState => prevState - 1);
@@ -66,7 +52,13 @@ export const Home = () => {
                                 resetError={() => setErrorMsg({message: "", success: false})}
                             />
                         }
-                        <h1>Welcome {rdxUser.credentials.user.name}</h1>
+                        {timeline.length > 0 && timeline.map((post) => (
+                            <div key={post._id} className="post">
+                                <h3>{post.author}</h3>
+                                <img src={post.image} alt="post" />
+                                <p>{post.caption}</p>
+                            </div>
+                        ))}
                     </>
             }
         </div>
