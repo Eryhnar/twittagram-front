@@ -1,7 +1,7 @@
 import "./TimedPopupMsg.css";
 import { useState, useEffect } from "react";
 
-export const TimedPopupMsg = ({ key, message, success, time, resetServerError}) => {
+export const TimedPopupMsg = ({ message, success, time, resetServerError}) => {
     const [isOpened, setIsOpened] = useState(true);
 
     // useEffect(() => {
@@ -31,7 +31,6 @@ export const TimedPopupMsg = ({ key, message, success, time, resetServerError}) 
                 <p>{message}</p>
                 <div className="popup-timer-wrapper">
                     <div 
-                        key={key}
                         className={success ? "popup-timer-bar-success" : "popup-timer-bar-failure"} 
                         style={{ animationDuration: `${time || 4000}ms`}}>
                     </div>

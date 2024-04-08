@@ -3,8 +3,9 @@ import { CCard } from "../../common/CCard/CCard";
 import { CInput } from "../../common/CInput/CInput";
 import { CButton } from "../../common/CButton/CButton";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
-import isValidEmail from "../../utils/isValidEmail";
 import { useState } from "react";
+import { LoginService } from "../../services/apiCalls";
+import { validateEmail, validatePassword } from "../../utils/validateLogin";
 
 export const Login = () => {
     const [credentials, setCredentials] = useState({
@@ -13,7 +14,7 @@ export const Login = () => {
     });
     const [errorMsg, setErrorMsg] = useState({
         emailError: "",
-        passwordError: "", // Not used for security reasons TODO remove
+        passwordError: "", 
         serverError: {message: "", success: false}
     });
     const [key, setKey] = useState(0); // I DO NOT LIKE THIS
@@ -27,7 +28,8 @@ export const Login = () => {
 
     const validateInput = (email, password) => {
         return {
-            emailError: isValidEmail(email)
+            emailError: validateEmail(email),
+            passwordError: validatePassword(password)
         };
     }
 
@@ -38,6 +40,8 @@ export const Login = () => {
                 ...errors,
                 serverError: prevState.serverError
             }));
+            console.log(errors.emailError);
+            console.log(errorMsg.emailError);
             if (errors.emailError) {
                 return;
             }
@@ -57,13 +61,21 @@ export const Login = () => {
     }
     return (
         <div className="login-design">
-            <TimedPopupMsg
-                key={0}
-                message={errorMsg.serverError.message}
-                success={errorMsg.serverError.success}
-                timer={10000}
-                setFunction={setErrorMsg}
-            />
+            {errorMsg.serverError.message !== "" && (
+                <TimedPopupMsg
+                    key={key}
+                    message={errorMsg.serverError.message}
+                    success={errorMsg.serverError.success}
+                    timer={10000}
+                    resetServerError={() => setErrorMsg(prevState => ({
+                        ...prevState, 
+                        serverError: {
+                            message: "", 
+                            success: false
+                        }
+                    }))}
+                />
+            )}
             <CCard
                 className={"login-card"}
                 title="Login"
@@ -96,12 +108,12 @@ export const Login = () => {
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
                             </div>
-                            {/* <div className={errorMsg.passwordError ? "login-field-error-msg" : "login-empty-error"}>{errorMsg.passwordError}</div> */}
+                            <div className={errorMsg.passwordError ? "login-field-error-msg" : "login-empty-error"}>{errorMsg.passwordError}</div>
                         </div>
                         <CButton
                             className={"login-button"}
                             title={"Login"}
-                            onClickFunction={() => console.log("Login")}
+                            onClickFunction={loginUser}
                         />
                     </div>
                 }

@@ -137,7 +137,13 @@ export const Register = () => {
                                 message={errorMsg.serverError.message} 
                                 success={errorMsg.serverError.success} 
                                 time={10000}
-                                resetServerError={() => setErrorMsg(prevState => ({...prevState, serverError: {message: "", success: false}}))}
+                                resetServerError={() => setErrorMsg(prevState => ({
+                                    ...prevState, 
+                                    serverError: {
+                                        message: "", 
+                                        success: false
+                                    }
+                                }))}
                             />
                         )}
                     </div>
