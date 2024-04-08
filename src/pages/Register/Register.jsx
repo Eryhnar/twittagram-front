@@ -119,6 +119,7 @@ export const Register = () => {
                                     value={user.userName || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
+                                <div className="info-button-wrapper"><InfoButton/></div>
                             </div>
                             <div className={errorMsg.userNameError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.userNameError}</div>
 
@@ -135,6 +136,7 @@ export const Register = () => {
                                     value={user.email || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
+                                <div className="info-button-wrapper"><InfoButton/></div>
                             </div>
                             {/* <div className="register-field-error">hi</div> */}
                             <div className={errorMsg.emailError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.emailError}</div>
@@ -151,6 +153,7 @@ export const Register = () => {
                                     value={user.password || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
+                                <div className="info-button-wrapper"><InfoButton/></div>
                             </div>
                             <div className={errorMsg.passwordError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.passwordError}</div>
                         </div>
@@ -160,11 +163,17 @@ export const Register = () => {
                             onClickFunction={registerUser}
                         />
                         <div className="register-msg">{errorMsg.serverError}</div>
+                        <div className="register-redirect-text">
+                            {/* Already registered? Click{" "}
+
                         <NavButton
-                            className="login-redirect"
-                            title="Already registered? Click here to log in!"
+                            className="register-redirect-link"
+                            title="here"
                             path="/login"
                         />
+                            &nbsp;to log in! */}
+                            Already registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;to log in!
+                        </div>
                         {/* <div>{msgError}</div> */}
                     </div>
                 }
