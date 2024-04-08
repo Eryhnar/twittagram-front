@@ -20,8 +20,9 @@ export const Register = () => {
         userNameError: "",
         emailError: "",
         passwordError: "",
-        serverError: ""
+        serverError: {message: "", success: false}
     });
+    const [key, setKey] = useState(0); // I DO NOT LIKE THIS
 
     const inputHandler = (e) => {
         setUser((prevState) => ({
@@ -69,28 +70,39 @@ export const Register = () => {
             // }
 
             const errors = validateInput(user.userName, user.email, user.password);
-            setErrorMsg(errors);
+            setErrorMsg(prevState => ({
+                ...errors,
+                serverError: prevState.serverError
+            }));
 
             if (errors.userNameError || errors.emailError || errors.passwordError) {
                 return;
             }
-
             const response = await RegisterService(user);
+            // console.log(response);
             setErrorMsg(prevState => ({
                 ...prevState,
-                serverError: response.message
+                serverError: {message: response.message, success: response.success}
             }));
+            setKey(prevState => prevState + 1);
+            // const response = await RegisterService(user);
+            // setErrorMsg(prevState => ({
+            //     ...prevState,
+            //     serverError: response.message
+            // }));
 
             // navigate("/login");
         } catch (error) {
             // console.log(error.message);
             setErrorMsg(prevState => ({
                 ...prevState,
-                serverError: error.message
+                serverError: {message: error.message, success: false}
             }));
+            setKey(prevState => prevState + 1);
         }
         // console.log("Registering user");
     }
+    // console.log(errorMsg);
 
     return (
         <div className="register-design">
@@ -163,7 +175,7 @@ export const Register = () => {
                             title="Register"
                             onClickFunction={registerUser}
                         />
-                        <div className="register-msg">{errorMsg.serverError}</div>
+                        {/* <div className="register-msg">{errorMsg.serverError}</div> */}
                         <div className="register-redirect-text">
                             {/* Already registered? Click{" "}
 
@@ -176,7 +188,15 @@ export const Register = () => {
                             Already registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;to log in!
                         </div>
                         {/* <div>{msgError}</div> */}
-                        <TimedPopupMsg message={"hi"} success={true} time={10000}/>
+                        {errorMsg.serverError.message !== "" && (
+                            <TimedPopupMsg 
+                                key={key}
+                                message={errorMsg.serverError.message} 
+                                success={errorMsg.serverError.success} 
+                                time={10000}
+                                resetServerError={() => setErrorMsg(prevState => ({...prevState, serverError: {message: "", success: false}}))}
+                            />
+                        )}
                     </div>
                 }
             />
