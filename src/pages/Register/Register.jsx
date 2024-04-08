@@ -8,8 +8,10 @@ import { RegisterService } from "../../services/apiCalls";
 import { validateEmail, validatePassword, validateUserHandle } from "../../utils/validateRegister";
 import { InfoButton } from "../../common/InfoButton/InfoButton";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
+import { useNavigate } from "react-router-dom";
 
 export const Register = () => {
+    const navigate = useNavigate();
 
     const [user, setUser] = useState({
         userName: "",
@@ -56,6 +58,7 @@ export const Register = () => {
                 serverError: {message: response.message, success: response.success}
             }));
             setKey(prevState => prevState + 1);
+            navigate("/login");
         } catch (error) {
             setErrorMsg(prevState => ({
                 ...prevState,

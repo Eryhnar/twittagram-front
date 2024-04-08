@@ -7,14 +7,14 @@ import { thunk } from "redux-thunk";
 import storage from "redux-persist/lib/storage";
 
 import userSlice from "./slices/userSlice";
-import searchSlice from "./slices/searchSlice";
-import detailSlice from "./slices/detailSlice";
+// import searchSlice from "./slices/searchSlice";
+// import detailSlice from "./slices/detailSlice";
 
 
 const reducers = combineReducers({
     user: userSlice,
-    search: searchSlice,
-    detail: detailSlice
+    // search: searchSlice,
+    // detail: detailSlice
 });
 
 const persistConfig = {

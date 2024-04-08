@@ -6,8 +6,14 @@ import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState } from "react";
 import { LoginService } from "../../services/apiCalls";
 import { validateEmail, validatePassword } from "../../utils/validateLogin";
+import { login } from "../../app/slices/userSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const [credentials, setCredentials] = useState({
         email: "",
         password: ""
@@ -40,8 +46,6 @@ export const Login = () => {
                 ...errors,
                 serverError: prevState.serverError
             }));
-            console.log(errors.emailError);
-            console.log(errorMsg.emailError);
             if (errors.emailError) {
                 return;
             }
@@ -51,6 +55,12 @@ export const Login = () => {
                 serverError: {message: response.message, success: response.success}
             }));
             setKey(prevState => prevState + 1);
+            console.log(response);
+            const userCredentials = {
+                user: response.data.user,
+                token: response.data.token
+            }
+            dispatch(login({credentials: {user: userCredentials.user, token: userCredentials.token}}));
         } catch (error) {
             setErrorMsg(prevState => ({
                 ...prevState,
