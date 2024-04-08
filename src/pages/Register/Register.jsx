@@ -32,29 +32,6 @@ export const Register = () => {
     };
 
     const validateInput = (userName, email, password) => {
-        // if (userName === "" || email === "" || password === "") {
-        //     setErrorMsg(prevState => ({
-        //         ...prevState,
-        //         userNameError: "Field is required",
-        //         emailError: "Field is required",
-        //         passwordError: "Field is required"
-        //     }));
-        // }
-        // processHandle(userName)
-        // if (!isValidHandle(userName)) {
-        //     setErrorMsg(prevState => ({
-        //         ...prevState,
-        //         userNameError: "Invalid handle"
-        //     }));
-        // };
-
-
-        // setErrorMsg(prevState => ({
-        //     ...prevState,
-        //     userNameError: validateUserHandle(userName),
-        //     emailError: validateEmail(email),
-        //     passwordError: validatePassword(password)
-        // }));
         return {
             userNameError: validateUserHandle(userName),
             emailError: validateEmail(email),
@@ -64,11 +41,6 @@ export const Register = () => {
 
     const registerUser = async () => {
         try {
-            // validateInput(user.userName, user.email, user.password);
-            // if (errorMsg.userNameError !== "" || errorMsg.emailError !== "" || errorMsg.passwordError !== "") {
-            //     return;
-            // }
-
             const errors = validateInput(user.userName, user.email, user.password);
             setErrorMsg(prevState => ({
                 ...errors,
@@ -79,42 +51,23 @@ export const Register = () => {
                 return;
             }
             const response = await RegisterService(user);
-            // console.log(response);
             setErrorMsg(prevState => ({
                 ...prevState,
                 serverError: {message: response.message, success: response.success}
             }));
             setKey(prevState => prevState + 1);
-            // const response = await RegisterService(user);
-            // setErrorMsg(prevState => ({
-            //     ...prevState,
-            //     serverError: response.message
-            // }));
-
-            // navigate("/login");
         } catch (error) {
-            // console.log(error.message);
             setErrorMsg(prevState => ({
                 ...prevState,
                 serverError: {message: error.message, success: false}
             }));
             setKey(prevState => prevState + 1);
         }
-        // console.log("Registering user");
     }
-    // console.log(errorMsg);
 
     return (
         <div className="register-design">
-            {/* <div className="register-title">
-                Register
-            </div>
-            <div className="input-field">
-                
-            </div>
-            <div className="input-field"></div>
-            <div className="input-field"></div>
-            <div className="input-field"></div> */}
+
             <CCard
                 className="register-card"
                 title="Register"
@@ -151,7 +104,6 @@ export const Register = () => {
                                 />
                                 <div className="info-button-wrapper"><InfoButton/></div>
                             </div>
-                            {/* <div className="register-field-error">hi</div> */}
                             <div className={errorMsg.emailError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.emailError}</div>
                         </div>
                         <div className="register-field">
@@ -175,19 +127,10 @@ export const Register = () => {
                             title="Register"
                             onClickFunction={registerUser}
                         />
-                        {/* <div className="register-msg">{errorMsg.serverError}</div> */}
                         <div className="register-redirect-text">
-                            {/* Already registered? Click{" "}
 
-                        <NavButton
-                            className="register-redirect-link"
-                            title="here"
-                            path="/login"
-                        />
-                            &nbsp;to log in! */}
                             Already registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;to log in!
                         </div>
-                        {/* <div>{msgError}</div> */}
                         {errorMsg.serverError.message !== "" && (
                             <TimedPopupMsg 
                                 key={key}
