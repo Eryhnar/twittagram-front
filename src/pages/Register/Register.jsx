@@ -7,6 +7,7 @@ import { useState } from "react";
 import { RegisterService } from "../../services/apiCalls";
 import { validateEmail, validatePassword, validateUserHandle } from "../../utils/validateRegister";
 import { InfoButton } from "../../common/InfoButton/InfoButton";
+import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 
 export const Register = () => {
 
@@ -175,6 +176,7 @@ export const Register = () => {
                             Already registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;to log in!
                         </div>
                         {/* <div>{msgError}</div> */}
+                        <TimedPopupMsg message={"hi"} success={true} time={10000}/>
                     </div>
                 }
             />
