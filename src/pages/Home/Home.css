@@ -1,10 +1,10 @@
 .home-container{
-    min-height: 80svh;
+    min-height: 90svh;
     background-color: blueviolet;
 }
 
 @media (min-width: 768px){
     .home-container{
-        min-height: 100svh;
+        min-height: 90svh;
     }
 }

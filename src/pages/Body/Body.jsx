@@ -9,15 +9,15 @@ export const Body = () => {
         
         <Routes>
             <Route path="/" element={<Home />} />
-            {/* <Route path="/login" element={<SecureRoute protMode="allow-logged-out" />}>
+            <Route path="/login" element={<SecureRoute protMode="allow-logged-out" />}>
                 <Route index element={<Login />} />
-            </Route> */}
-            <Route path="/login" element={<Login />} />
+            </Route>
+            {/* <Route path="/login" element={<Login />} /> */}
 
-            {/* <Route path="/register" element={<SecureRoute protMode="allow-logged-out" />}>
+            <Route path="/register" element={<SecureRoute protMode="allow-logged-out" />}>
                 <Route index element={<Register />} />
-            </Route> */}
-            <Route path="/register" element={<Register />} />
+            </Route>
+            {/* <Route path="/register" element={<Register />} /> */}
 
             {/* <Route path="/profile" element={<SecureRoute protMode="allow-logged-in" />}>
                 <Route index element={<Profile />} />
