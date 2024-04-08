@@ -4,8 +4,23 @@
     background-color: blue;
     border-radius: 50%;
     color: white;
+    position: relative;
 }
 
-.default-info-button:hover > .info-button-info {
+/* .default-info-button:hover > .info-button-info {
     display: block;
+} */
+
+.info-button-info {
+    /* display: none; */
+    position: absolute;
+    bottom:50%;
+    left: calc(50% + 1rem);
+    background-color: white;
+    color: black;
+    /* border: 0.1rem solid black; */
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    width: 10rem;
+    z-index: 1;
 }

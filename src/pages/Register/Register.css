@@ -30,11 +30,19 @@
     align-items: center;
     position: relative;
 }
-
 .register-input-area p{
     position: absolute;
     right: calc(50% + 6rem);
     text-align: right;
+}
+
+.info-button-wrapper {
+    position: absolute;
+    left: calc(50% + 6em);
+}
+
+.register-info-button {
+
 }
 
 .register-input {
@@ -56,4 +64,15 @@
 
 .register-empty-error {
     height: 1rem;
+}
+
+.register-redirect-text {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.register-redirect-link {
+    text-decoration:underline;
+    color:rgb(36, 36, 189)
 }
