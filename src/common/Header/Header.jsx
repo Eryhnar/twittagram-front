@@ -10,7 +10,12 @@ export const Header = () => {
                     path="/"
                 />
                 <NavButton
-                    title={"Register"} path="/register"
+                    title={"Register"} 
+                    path="/register"
+                />
+                <NavButton
+                    title={"Login"}
+                    path="/login"
                 />
             {/* </div> */}
         </div>

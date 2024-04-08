@@ -2,6 +2,7 @@ import {Route, Routes, Navigate} from 'react-router-dom';
 import { SecureRoute } from '../../common/SecureRoute/SecureRoute';
 import { Home } from '../Home/Home';
 import { Register } from '../Register/Register';
+import { Login } from '../Login/Login';
 
 export const Body = () => {
     return (
@@ -11,6 +12,7 @@ export const Body = () => {
             {/* <Route path="/login" element={<SecureRoute protMode="allow-logged-out" />}>
                 <Route index element={<Login />} />
             </Route> */}
+            <Route path="/login" element={<Login />} />
 
             {/* <Route path="/register" element={<SecureRoute protMode="allow-logged-out" />}>
                 <Route index element={<Register />} />
