@@ -21,6 +21,7 @@ export const Home = () => {
             try {
                 const response = await getTimelineService(token);
                 setTimeline(response.data);
+                console.log(response);
             } catch (error) {
                 if (retries > 0) {
                     setRetries(prevState => prevState - 1);
@@ -40,26 +41,30 @@ export const Home = () => {
         <div className="home-container">
             {!token
                 ?
-                    <h1>Home</h1>
+                <h1>Home</h1>
 
                 :
-                    <>
-                        {errorMsg.message && 
-                            <TimedPopupMsg
-                                message={errorMsg.message}
-                                success={errorMsg.success}
-                                duration={5000}
-                                resetError={() => setErrorMsg({message: "", success: false})}
-                            />
-                        }
-                        {timeline.length > 0 && timeline.map((post) => (
-                            <div key={post._id} className="post">
-                                <h3>{post.author}</h3>
-                                <img src={post.image} alt="post" />
-                                <p>{post.caption}</p>
-                            </div>
-                        ))}
-                    </>
+                <>
+                    {errorMsg.message && 
+                        <TimedPopupMsg
+                            message={errorMsg.message}
+                            success={errorMsg.success}
+                            duration={5000}
+                            resetError={() => setErrorMsg({message: "", success: false})}
+                        />
+                    }
+                    {timeline.length > 0 && timeline.map((post) => (
+                        <div key={post._id} className="post">
+                            <h3>{post.author.userName}</h3>
+                            {/* <div>{post.author.profilePicture}</div> */}
+                            <img src={post.author.profilePicture} alt="author image" />
+                            <div>{post.author.userHandle}</div>
+                            <div>{post.createdAt}</div>
+                            <img src={post.image} alt="post" />
+                            <p>{post.caption}</p>
+                        </div>
+                    ))}
+                </>
             }
         </div>
     )
