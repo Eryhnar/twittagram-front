@@ -22,6 +22,8 @@ export const Profile = () => {
         // console.log(rdxDetail);
         // getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle)
         const fetchProfile = async () => {
+            console.log(rdxDetail.details);
+            console.log(rdxUser.credentials);
             try {
                 const response = await getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle);
                 setProfile(response.data);
@@ -36,7 +38,8 @@ export const Profile = () => {
         }
         rdxUser.credentials.token && retries > 0 ? fetchProfile() : setIsLoading(false);
         // fetchProfile();
-    }, [retries])
+    // }, [retries])
+    }, [retries, rdxDetail.details.userHandle])
 
     return (
 
@@ -45,9 +48,9 @@ export const Profile = () => {
                 message={errorMsg.message}
                 success={errorMsg.success}
                 duration={5000}
-                resetError={() => setErrorMsg({ message: "", success: false })}
+                resetServerError={() => setErrorMsg({ message: "", success: false })}
             />
-            {!isLoading 
+            {!isLoading && profile.userName
             ?
             <>
                 <div className="profile-info-area">
@@ -65,8 +68,16 @@ export const Profile = () => {
                         </div>
                         <p>{profile.bio}</p>
                         <div className="profile-interactions">
-                            <div>follow</div>
-                            <div>add friend</div>
+                            {rdxUser.credentials.userHandle === profile.userHandle
+                                ?
+                                <div>edit profile</div>
+                                :
+                                <>
+                                    <div>follow</div>
+                                    <div>add friend</div>
+                                </>
+                            }
+
                         </div>
                     </div>
                 </div>

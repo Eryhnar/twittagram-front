@@ -2,11 +2,12 @@ import { NavButton } from "../NavButton/NavButton";
 import "./Header.css";
 import { useSelector, useDispatch } from "react-redux";
 import { userData, logout } from "../../app/slices/userSlice";
+import { saveDetails } from "../../app/slices/detailSlice";
 
 export const Header = () => {
     const rdxUser = useSelector(userData);
+    console.log(rdxUser.credentials);
     const dispatch = useDispatch();
-    console.log(rdxUser);
     return (
         <div className="header-design">
             {/* <div className="header-title"> */}
@@ -17,15 +18,21 @@ export const Header = () => {
                 {rdxUser.credentials.token 
                     ? 
                     <>
-                        <NavButton
-                            title={<img src={rdxUser.credentials.user.picture} alt="profile" className="profile-pic" />}
-                            path="/profile"
-                        />
-                        <NavButton
-                            title="Logout"
-                            path="/"
-                            onClick={() => dispatch(logout())}
-                        />
+                        <div onClick={() => dispatch(saveDetails(rdxUser.credentials.user))}>
+                            <NavButton
+                                title={<img src={rdxUser.credentials.user.profilePicture} alt="profile" className="profile-pic" />}
+                                // onClick={() => dispatch(saveDetails(rdxUser.credentials.user))}
+                                path="/profile"
+                                // onClick={() => console.log(rdxUser.credentials.user)}
+                            />
+                        </div>
+                        <div onClick={() => dispatch(logout({ credentials: "" }))}>
+                            <NavButton
+                                title="Logout"
+                                path="/"
+                                // onClick={() => dispatch(logout())}
+                            />
+                        </div>
                     </>
                     : 
                     <>
