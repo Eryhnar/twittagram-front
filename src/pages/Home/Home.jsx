@@ -67,7 +67,7 @@ export const Home = () => {
                             {/* <h3>{post.author.userName}</h3> */}
                             <div onClick={() => {
                                 console.log(post.author)
-                                dispatch(saveDetails({ details: post.author }))
+                                dispatch(saveDetails( post.author ))
                                 navigate("/profile");
                             }}>{post.author.userName}</div>
                             <div>{post.author.profilePicture}</div>
@@ -89,7 +89,7 @@ export const Home = () => {
                             <div>{post.author.userHandle}</div>
                             <div>{post.createdAt}</div>
                             <div onClick={() => {
-                                dispatch(saveDetails({ details: post }))
+                                dispatch(saveDetails( post ))
                                 console.log(post);
                             }}>
                                 <img src={post.image} alt="post" />
