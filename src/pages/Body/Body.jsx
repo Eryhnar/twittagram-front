@@ -3,6 +3,7 @@ import { SecureRoute } from '../../common/SecureRoute/SecureRoute';
 import { Home } from '../Home/Home';
 import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
+import { Profile } from '../Profile/Profile';
 
 export const Body = () => {
     return (
@@ -19,9 +20,9 @@ export const Body = () => {
             </Route>
             {/* <Route path="/register" element={<Register />} /> */}
 
-            {/* <Route path="/profile" element={<SecureRoute protMode="allow-logged-in" />}>
+            <Route path="/profile" element={<SecureRoute protMode="allow-logged-in" />}>
                 <Route index element={<Profile />} />
-            </Route> */}
+            </Route>
             
             {/* <Route path="/admin" element={<SecureRoute protMode="allow-logged-in-admin" />}>
                 <Route index element={<Admin />} />
