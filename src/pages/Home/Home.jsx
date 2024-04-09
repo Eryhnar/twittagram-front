@@ -45,7 +45,7 @@ export const Home = () => {
     }, [retries])
 
     return (
-        <div className="home-container">
+        <div className="home-design">
             {!token
                 ?
                 <h1>Home</h1>
@@ -61,52 +61,62 @@ export const Home = () => {
                         />
                     }
                     {timeline.length > 0 && timeline.map((post) => (
-                        <div key={post._id} className="timeline-post">
-                        {/* <div key={post._id} className="post" onClick={() => {
-                            console.log(post);
-                            dispatch(saveDetails({ details: post }));
-                        }}> */}
-                            {/* <h3>{post.author.userName}</h3> */}
-                            <div className="timeline-post-header">
-                                <div className="timeline-post-author-img" onClick={() => {
-                                    dispatch(saveDetails( post.author ))
-                                    navigate("/profile");
-                                }}>
-                                    <img src={post.author.profilePicture} alt="author image" />
-                                </div>
-                                    {/* {post.author.profilePicture}</div> */}
-                                
-                                <div className="timeline-post-header-author-info">
-                                    <div onClick={() => {
+                        <div className="timeline-posts" key={post._id}>
+                            <div className="timeline-post">
+                            {/* <div key={post._id} className="post" onClick={() => {
+                                console.log(post);
+                                dispatch(saveDetails({ details: post }));
+                            }}> */}
+                                {/* <h3>{post.author.userName}</h3> */}
+                                <div className="timeline-post-header">
+                                    <div className="timeline-post-author-img" onClick={() => {
                                         dispatch(saveDetails( post.author ))
                                         navigate("/profile");
-                                    }}>{post.author.userName}</div>
-                                    <div>{post.author.userHandle}</div>
+                                    }}>
+                                        <img src={post.author.profilePicture} alt="author image" />
+                                    </div>
+                                        {/* {post.author.profilePicture}</div> */}
+                            
+                                    <div className="timeline-post-header-author-info">
+                                        <div onClick={() => {
+                                            dispatch(saveDetails( post.author ))
+                                            navigate("/profile");
+                                        }}>{post.author.userName}</div>
+                                        <div>{post.author.userHandle}</div>
+                                    </div>
+                                    {/* <div>{post.createdAt}</div> */}
+                                    <div>{timeSince(new Date(post.createdAt))}</div>
                                 </div>
-                                {/* <div>{post.createdAt}</div> */}
-                                <div>{timeSince(new Date(post.createdAt))}</div>
+                                {/* <div onClick={() => {
+                                    dispatch(saveDetails({ details: post }))
+                                    console.log(post);
+                                }}> */}
+                                {/* <div> */}
+                                    {/* <img
+                                        src={post.author.profilePicture}
+                                        alt="author image"
+                                        onClick={() => {
+                                            console.log("click");
+                                            dispatch(saveDetails({ details: post }));
+                                        }}
+                                    /> */}
+                                    {/* <img src={post.author.profilePicture} alt="author image" /> */}
+                                {/* </div> */}
+                                <div className="timeline-post-img" onClick={() => {
+                                    dispatch(saveDetails( post ))
+                                }}>
+                                    <img src={post.image} alt="post" />
+                                </div>
+                                <p>{post.caption}</p>
+                                <div>{post.tags}</div>
+                                <div className="timeline-post-interactions">
+                                    <div>{post.likes.length}</div>
+                                    <div>like</div>
+                                    {/* <div>{post.comments.length}</div> */}
+                                    <div>comments</div>
+                                    {/* <div>{post.comments}</div> */}
+                                </div>
                             </div>
-                            {/* <div onClick={() => {
-                                dispatch(saveDetails({ details: post }))
-                                console.log(post);
-                            }}> */}
-                            {/* <div> */}
-                                {/* <img
-                                    src={post.author.profilePicture}
-                                    alt="author image"
-                                    onClick={() => {
-                                        console.log("click");
-                                        dispatch(saveDetails({ details: post }));
-                                    }}
-                                /> */}
-                                {/* <img src={post.author.profilePicture} alt="author image" /> */}
-                            {/* </div> */}
-                            <div className="timeline-post-img" onClick={() => {
-                                dispatch(saveDetails( post ))
-                            }}>
-                                <img src={post.image} alt="post" />
-                            </div>
-                            <p>{post.caption}</p>
                         </div>
                     ))}
                 </>
