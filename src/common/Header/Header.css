@@ -8,6 +8,9 @@
     color: white;
 
     height: 10svh;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
 .profile-pic {

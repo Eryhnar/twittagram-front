@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { getTimelineService } from "../../services/apiCalls";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { useNavigate } from "react-router-dom";
+import { timeSince } from "../../utils/timeSince";
 
 export const Home = () => {
     const rdxUser = useSelector(userData);
@@ -35,11 +36,12 @@ export const Home = () => {
                 }
             }
         }
-        if (token && retries > 0) {
-            fetchTimeline();
-        } else {
-            setIsLoading(false);
-        }
+        token && retries > 0 ? fetchTimeline() : setIsLoading(false);
+        // if (token && retries > 0) {
+        //     fetchTimeline();
+        // } else {
+        //     setIsLoading(false);
+        // }
     }, [retries])
 
     return (
@@ -59,18 +61,31 @@ export const Home = () => {
                         />
                     }
                     {timeline.length > 0 && timeline.map((post) => (
-                        <div key={post._id} className="post">
+                        <div key={post._id} className="timeline-post">
                         {/* <div key={post._id} className="post" onClick={() => {
                             console.log(post);
                             dispatch(saveDetails({ details: post }));
                         }}> */}
                             {/* <h3>{post.author.userName}</h3> */}
-                            <div onClick={() => {
-                                console.log(post.author)
-                                dispatch(saveDetails( post.author ))
-                                navigate("/profile");
-                            }}>{post.author.userName}</div>
-                            <div>{post.author.profilePicture}</div>
+                            <div className="timeline-post-header">
+                                <div className="timeline-post-author-img" onClick={() => {
+                                    dispatch(saveDetails( post.author ))
+                                    navigate("/profile");
+                                }}>
+                                    <img src={post.author.profilePicture} alt="author image" />
+                                </div>
+                                    {/* {post.author.profilePicture}</div> */}
+                                
+                                <div className="timeline-post-header-author-info">
+                                    <div onClick={() => {
+                                        dispatch(saveDetails( post.author ))
+                                        navigate("/profile");
+                                    }}>{post.author.userName}</div>
+                                    <div>{post.author.userHandle}</div>
+                                </div>
+                                {/* <div>{post.createdAt}</div> */}
+                                <div>{timeSince(new Date(post.createdAt))}</div>
+                            </div>
                             {/* <div onClick={() => {
                                 dispatch(saveDetails({ details: post }))
                                 console.log(post);
@@ -84,13 +99,10 @@ export const Home = () => {
                                         dispatch(saveDetails({ details: post }));
                                     }}
                                 /> */}
-                                <img src={post.author.profilePicture} alt="author image" />
+                                {/* <img src={post.author.profilePicture} alt="author image" /> */}
                             {/* </div> */}
-                            <div>{post.author.userHandle}</div>
-                            <div>{post.createdAt}</div>
-                            <div onClick={() => {
+                            <div className="timeline-post-img" onClick={() => {
                                 dispatch(saveDetails( post ))
-                                console.log(post);
                             }}>
                                 <img src={post.image} alt="post" />
                             </div>

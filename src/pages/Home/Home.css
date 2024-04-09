@@ -3,6 +3,48 @@
     background-color: blueviolet;
 }
 
+.timeline-posts {
+
+}
+
+.timeline-post {
+    max-width: 60vw;
+    margin-inline: auto;
+    background-color: rgb(66, 7, 121);
+    color: black;
+    margin-block: 2rem;
+}
+
+.timeline-post-header {
+    /* width: 80vw; */
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    margin-inline: auto;
+    background-color: brown;
+}
+
+.timeline-post-author-img {
+    width: 3rem;
+    height: 3rem;
+}
+
+.timeline-post-author-img img {
+    display: block;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.timeline-post-header-author-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.timeline-post > p {
+    margin-block: 1rem;
+}
+
 @media (min-width: 768px){
     .home-container{
         min-height: 90svh;
