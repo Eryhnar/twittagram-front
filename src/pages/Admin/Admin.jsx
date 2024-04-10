@@ -1,6 +1,9 @@
 import { CButton } from "../../common/CButton/CButton";
 import "./Admin.css"
 import { useEffect, useState } from "react";
+import { userData } from "../../app/slices/userSlice";
+import { useSelector } from "react-redux";
+import { getUsersService } from "../../services/apiCalls";
 
 export const Admin = () => {
     const [data, setData] = useState([]);
@@ -10,14 +13,16 @@ export const Admin = () => {
         success: false
     });
     const [retries, setRetries] = useState(3);
-    const [isLoading, setIsLoading] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+
+    const rdxUser = useSelector(userData);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log(dataType);
                 const response = await getData(dataType);
                 setData(response.data);
-                // setDataType("");
                 setRetries(3);
                 setIsLoading(false);
                 console.log(response.data);
@@ -38,11 +43,11 @@ export const Admin = () => {
     const getData = (dataType) => {
         switch (dataType) {
             case "users":
-                return getUsersService();
+                return getUsersService(rdxUser.credentials.token);
             case "posts":
-                return getPostsService();
+                return getPostsService(rdxUser.credentials.token);
             case "comments":
-                return getCommentsService();
+                return getCommentsService(rdxUser.credentials.token);
             default:
                 return { data: [] };
         }
@@ -50,22 +55,49 @@ export const Admin = () => {
 
     return (
         <div className="admin-design">
-            <CButton
-                className="admin-fetch-filter"
-                title="Users"
-                onClick={() => setDataType("users")}
-            />
-            <CButton
-                className="admin-fetch-filter"
-                title="Posts"
-                onClick={() => setDataType("posts")}
-            />
-            <CButton
-                className="admin-fetch-filter"
-                title="Comments"
-                onClick={() => setDataType("comments")}
-            />
-            <h1>Admin Page</h1>
+            <div className="admin-filter-header">
+                <CButton
+                    className="admin-filter-button"
+                    title="Users"
+                    onClickFunction={() => {
+                        setDataType("users")
+                        setIsLoading(true)
+                    }}
+                />
+                <CButton
+                    className="admin-filter-button"
+                    title="Posts"
+                    onClickFunction={() => {
+                        setDataType("posts")
+                        setIsLoading(true)
+                    }}
+                />
+                <CButton
+                    className="admin-filter-button"
+                    title="Comments"
+                    onClickFunction={() => {
+                        setDataType("comments")
+                        setIsLoading(true)
+                    }}
+                />
+            </div>
+            {isLoading
+            ?
+            <h1>Loading...</h1>
+            :
+                data.length > 0 
+                    ?
+                    <div className="admin-data">
+                        {data.map((item) => (
+                            <div className="admin-data-item" key={item._id}>
+                                <h3>{item.userName}</h3>
+                            </div>
+                        ))}
+                    </div>
+                    :
+                    <h1>Admin Page</h1>
+                
+            }
         </div>
     )
 }
