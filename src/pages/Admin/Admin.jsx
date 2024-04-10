@@ -3,7 +3,7 @@ import "./Admin.css"
 import { useEffect, useState } from "react";
 import { userData } from "../../app/slices/userSlice";
 import { useSelector } from "react-redux";
-import { getUsersService } from "../../services/apiCalls";
+import { getCommentsService, getPostsService, getUsersService } from "../../services/apiCalls";
 
 export const Admin = () => {
     const [data, setData] = useState([]);
@@ -87,6 +87,7 @@ export const Admin = () => {
             :
                 data.length > 0 
                     ?
+                    dataType === "users" ? 
                     <div className="admin-data">
                         {data.map((item) => (
                             <div className="admin-data-item" key={item._id}>
@@ -95,7 +96,27 @@ export const Admin = () => {
                         ))}
                     </div>
                     :
+                    dataType === "posts" ?
+                    <div className="admin-data">
+                        {data.map((item) => (
+                            <div className="admin-data-item" key={item._id}>
+                                <h3>{item.image}</h3>
+                            </div>
+                        ))}
+                    </div>
+                    :
+                    dataType === "comments" ?
+                    <div className="admin-data">
+                        {data.map((item) => (
+                            <div className="admin-data-item" key={item._id}>
+                                <h3>{item.comment}</h3>
+                            </div>
+                        ))}
+                    </div>
+                    :
                     <h1>Admin Page</h1>
+                :
+                <h1>No data available</h1>
                 
             }
         </div>
