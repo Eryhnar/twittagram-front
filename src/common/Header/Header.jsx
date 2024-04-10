@@ -18,6 +18,12 @@ export const Header = () => {
                 {rdxUser.credentials.token 
                     ? 
                     <>
+                        {rdxUser.credentials.user.role.includes("admin") &&
+                            <NavButton
+                                title="Admin"
+                                path="/admin"
+                            />
+                        }
                         <div onClick={() => dispatch(saveDetails(rdxUser.credentials.user))}>
                             <NavButton
                                 title={<img src={rdxUser.credentials.user.profilePicture} alt="profile" className="profile-pic" />}

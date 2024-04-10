@@ -19,12 +19,13 @@ export const SecureRoute = ({ protMode }) => {
                 if (!token) navigate("/");
                 break;
             case 'allow-logged-in-admin':
-                if (!token || !token.roleName.includes("admin")) navigate("/");
+                // if (!token || !token.roleName.includes("admin")) navigate("/");
+                if (!user || !user.credentials.user.role.includes("admin")) navigate("/");
                 break;
             default:
                 navigate("/");
         }
-    }, [protMode, token, navigate]);
+    }, [protMode, user, token]);
 
     return <Outlet />;
 }

@@ -22,8 +22,8 @@ export const Profile = () => {
         // console.log(rdxDetail);
         // getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle)
         const fetchProfile = async () => {
-            console.log(rdxDetail.details);
-            console.log(rdxUser.credentials);
+            // console.log(rdxDetail.details);
+            // console.log(rdxUser.credentials);
             try {
                 const response = await getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle);
                 setProfile(response.data);
@@ -68,7 +68,7 @@ export const Profile = () => {
                         </div>
                         <p>{profile.bio}</p>
                         <div className="profile-interactions">
-                            {rdxUser.credentials.userHandle === profile.userHandle
+                            {rdxUser.credentials.user.userHandle == profile.userHandle
                                 ?
                                 <div>edit profile</div>
                                 :
