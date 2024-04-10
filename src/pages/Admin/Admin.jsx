@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { userData } from "../../app/slices/userSlice";
 import { useSelector } from "react-redux";
 import { getCommentsService, getPostsService, getUsersService } from "../../services/apiCalls";
+import { CTable } from "../../common/CTable/CTable";
 
 export const Admin = () => {
     const [data, setData] = useState([]);
@@ -40,6 +41,8 @@ export const Admin = () => {
     //     dataType !== "" && retries > 0 ? fetchData() : setIsLoading(false);
     // }, [retries, dataType]);
 
+    console.log(data);
+
     const getData = (dataType) => {
         switch (dataType) {
             case "users":
@@ -50,6 +53,22 @@ export const Admin = () => {
                 return getCommentsService(rdxUser.credentials.token);
             default:
                 return { data: [] };
+        }
+    }
+
+    const saveChanges = async () => {
+        try {
+            console.log("saving changes");
+        } catch (error) {
+            setErrorMsg({ message: error.message, success: false });
+        }
+    }
+
+    const deleteEntry = async () => {
+        try {
+            console.log("deleting data");
+        } catch (error) {
+            setErrorMsg({ message: error.message, success: false });
         }
     }
 
@@ -87,34 +106,39 @@ export const Admin = () => {
             :
                 data.length > 0 
                     ?
-                    dataType === "users" ? 
-                    <div className="admin-data">
-                        {data.map((item) => (
-                            <div className="admin-data-item" key={item._id}>
-                                <h3>{item.userName}</h3>
-                            </div>
-                        ))}
-                    </div>
-                    :
-                    dataType === "posts" ?
-                    <div className="admin-data">
-                        {data.map((item) => (
-                            <div className="admin-data-item" key={item._id}>
-                                <h3>{item.image}</h3>
-                            </div>
-                        ))}
-                    </div>
-                    :
-                    dataType === "comments" ?
-                    <div className="admin-data">
-                        {data.map((item) => (
-                            <div className="admin-data-item" key={item._id}>
-                                <h3>{item.comment}</h3>
-                            </div>
-                        ))}
-                    </div>
-                    :
-                    <h1>Admin Page</h1>
+                    // dataType === "users" ? 
+                    // <div className="admin-data">
+                    //     {data.map((item) => (
+                    //         <div className="admin-data-item" key={item._id}>
+                    //             <h3>{item.userName}</h3>
+                    //         </div>
+                    //     ))}
+                    // </div>
+                    <CTable
+                        data={data}
+                        saveChanges={saveChanges}
+                        deleteEntry={deleteEntry}
+                    />
+                    // :
+                    // dataType === "posts" ?
+                    // <div className="admin-data">
+                    //     {data.map((item) => (
+                    //         <div className="admin-data-item" key={item._id}>
+                    //             <h3>{item.image}</h3>
+                    //         </div>
+                    //     ))}
+                    // </div>
+                    // :
+                    // dataType === "comments" ?
+                    // <div className="admin-data">
+                    //     {data.map((item) => (
+                    //         <div className="admin-data-item" key={item._id}>
+                    //             <h3>{item.comment}</h3>
+                    //         </div>
+                    //     ))}
+                    // </div>
+                    // :
+                    // <h1>Admin Page</h1>
                 :
                 <h1>No data available</h1>
                 
