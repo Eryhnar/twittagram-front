@@ -5,6 +5,7 @@ import { Register } from '../Register/Register';
 import { Login } from '../Login/Login';
 import { Profile } from '../Profile/Profile';
 import { Admin } from '../Admin/Admin';
+import { Posts } from '../Posts/Posts';
 
 export const Body = () => {
     return (
@@ -28,6 +29,10 @@ export const Body = () => {
             <Route path="/admin" element={<SecureRoute protMode="allow-logged-in-admin" />}>
                 <Route index element={<Admin />} />
             </Route>
+            {/* <Route path="/:user/posts" element={<SecureRoute protMode="allow-logged-in" />}>
+                <Route index element={<Posts />} />
+            </Route> */}
+            <Route path="/:user/posts" element={<Posts />}/>
             {/* <Route path="/catalogue" element={<Catalogue />} /> */}
             <Route path="*" element={<Navigate to={"/"} replace/>} />
         </Routes>

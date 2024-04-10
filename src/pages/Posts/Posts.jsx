@@ -1,6 +1,12 @@
-export const Posts = (posts) => {
+import { useSelector } from "react-redux"
+import { detailData } from "../../app/slices/detailSlice"
+import { timeSince } from "../../utils/timeSince"
+
+export const Posts = () => {
+    const rdxDetails = useSelector(detailData);
+    console.log(rdxDetails);
     return (
-        posts.map((post) => (
+        rdxDetails.details.map((post) => (
             <div key={post._id} className="timeline-posts">
                 <div className="timeline-post">
                     <div className="timeline-post-header">

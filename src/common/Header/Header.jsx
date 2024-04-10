@@ -6,7 +6,6 @@ import { saveDetails } from "../../app/slices/detailSlice";
 
 export const Header = () => {
     const rdxUser = useSelector(userData);
-    console.log(rdxUser.credentials);
     const dispatch = useDispatch();
     return (
         <div className="header-design">

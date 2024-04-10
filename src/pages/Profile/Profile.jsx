@@ -1,12 +1,16 @@
 import "./Profile.css";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { detailData } from "../../app/slices/detailSlice";
+import { useSelector, useDispatch } from "react-redux";
+import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { userData } from "../../app/slices/userSlice";
 import { getProfileService } from "../../services/apiCalls";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
+import { useNavigate } from "react-router-dom";
 
 export const Profile = () => {
+    const navigate = useNavigate();
+
+    const dispatch = useDispatch();
     const rdxDetail = useSelector(detailData);
     const rdxUser = useSelector(userData);
 
@@ -83,7 +87,11 @@ export const Profile = () => {
                 <div className="profile-posts-container">
                     {profile.posts.map((post, index) => {
                         return (
-                            <div key={index} className="profile-post">
+                            <div key={index} className="profile-post" onClick={() => {
+                                dispatch(saveDetails(profile.posts))
+                                console.log(`${profile.userHandle}/posts`);
+                                navigate(`/${profile.userHandle}/posts`)
+                            }}>
                                 <img src={post.image} alt="" />
                             </div>
                         )
