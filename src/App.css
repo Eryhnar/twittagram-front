@@ -15,3 +15,18 @@
     grid-template-columns: 1fr 15rem;
     /* grid-template-areas: "header" "main"; */
 }
+
+::-webkit-scrollbar {
+    width: 1.2rem;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #646cff;
+    border: #2027b7 solid 0.2rem;
+    border-radius: 1rem;
+}
+
+::-webkit-scrollbar-track {
+    background-color: #2027b7;
+    /* margin-block: 0.5rem; */
+}
