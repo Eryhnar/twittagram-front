@@ -77,7 +77,6 @@ export const Profile = () => {
                                     <div>add friend</div>
                                 </>
                             }
-
                         </div>
                     </div>
                 </div>
