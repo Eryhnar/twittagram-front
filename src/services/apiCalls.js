@@ -134,3 +134,22 @@ export const getCommentsService = async (token) => {
     }
     return parsedResponse;
 }
+
+export const toggleLikeService = async (token, postId) => {
+    const response = await fetch(root + "posts/like", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ postId: postId }),
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}

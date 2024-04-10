@@ -26,7 +26,7 @@ export const Posts = () => {
                     <div>{post.tags}</div>
                     <div className="timeline-post-interactions">
                         <div>{post.likes.length}</div>
-                        <div>like</div>
+                        <div>likes</div>
                         <div>comments</div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState, useEffect } from "react";
-import { getTimelineService } from "../../services/apiCalls";
+import { getTimelineService, toggleLikeService } from "../../services/apiCalls";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { useNavigate } from "react-router-dom";
 import { timeSince } from "../../utils/timeSince";
@@ -44,6 +44,30 @@ export const Home = () => {
         // }
     }, [retries])
 
+    const toggleLike = async (post) => {
+        // console.log(post._id);
+        try {
+            const response = await toggleLikeService(token, post._id);
+            // console.log(response);
+                // console.log(post.likes);
+                setTimeline(timeline.map(item => 
+                    item._id === post._id 
+                        ? {...item, likes: post.likes.includes(rdxUser.credentials.user.id) 
+                            ? item.likes.filter(id => id !== rdxUser.credentials.user.id) 
+                            : [...item.likes, rdxUser.credentials.user.id]
+                        } 
+                        : item
+                ));
+                // console.log(post.likes);
+        } catch (error) {
+            if (retries > 0) {
+                setRetries(prevState => prevState - 1);
+            } else {
+                setErrorMsg({ message: error.message, success: false });
+            }
+        }
+    }
+
     return (
         <div className="home-design">
             {!token
@@ -57,7 +81,7 @@ export const Home = () => {
                             message={errorMsg.message}
                             success={errorMsg.success}
                             duration={5000}
-                            resetError={() => setErrorMsg({ message: "", success: false })}
+                            resetServerError={() => setErrorMsg({ message: "", success: false })}
                         />
                     }
                     {timeline.length > 0 && timeline.map((post) => (
@@ -109,12 +133,19 @@ export const Home = () => {
                                 </div>
                                 <p>{post.caption}</p>
                                 <div>{post.tags}</div>
-                                <div className="timeline-post-interactions">
-                                    <div>{post.likes.length}</div>
-                                    <div>like</div>
-                                    {/* <div>{post.comments.length}</div> */}
-                                    <div>comments</div>
-                                    {/* <div>{post.comments}</div> */}
+                                <div className="timeline-post-interactions-container">
+                                    <div className="post-interaction-buttons">
+                                        <div onClick={()=> toggleLike(post)}><span className={`material-symbols-outlined ${post.likes.includes(rdxUser.credentials.user.id) ? "favorited" : null}`} /*TODO style here*/ >favorite</span></div>
+                                        <div><span className="material-symbols-outlined">add_comment</span></div>
+                                        <div><span className="material-symbols-outlined">bookmark</span></div>
+                                    </div>
+                                    <div className="post-interaction-statistics">
+                                        <div>{post.likes.length}</div>
+                                        <div>likes</div>
+                                        {/* <div>{post.comments.length}</div> */}
+                                        <div>comments</div>
+                                        {/* <div>{post.comments}</div> */}
+                                    </div>
                                 </div>
                             </div>
                         </div>

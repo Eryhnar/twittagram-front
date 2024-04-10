@@ -3,6 +3,8 @@
     color: black;
     border: 0.1rem solid black;
     z-index: 1;
+    position: sticky;
+    top: 10vh;
 }
 
 .popup-timer-wrapper {
