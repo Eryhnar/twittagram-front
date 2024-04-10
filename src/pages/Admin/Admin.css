@@ -9,3 +9,9 @@
 
     background-color: orange;
 }
+
+.admin-table {
+    max-width: 80vw;
+    overflow-x: scroll;
+    margin-inline: auto;
+}
