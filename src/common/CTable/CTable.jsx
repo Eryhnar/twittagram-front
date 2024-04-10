@@ -1,12 +1,15 @@
-import { useEffec, useState } from "react";
+import { useEffect, useState } from "react";
 import { CInput } from "../CInput/CInput";
+import "./CTable.css";
 
 export const CTable = ({ data, saveChanges, deleteEntry }) => {
     const [isEditing, setIsEditing] = useState(false);
     const [editedData, setEditedData] = useState({});
     const [originalData, setOriginalData] = useState({});
 
-    const allKeys = [...new Set(data.flatMap(data.keys))]
+    console.log("Table data",data);
+
+    const allKeys = [...new Set(data.flatMap(Object.keys))]
     const columns = allKeys.map(key => ({
         Header: key,
         accessor: key 
@@ -23,7 +26,7 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
         setEditedData({});
     }
     return (
-        <table>
+        <table className="default-custom-table-design">
             <thead>
                 <tr>
                     {/* <th>Id</th>
@@ -35,8 +38,8 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
                     {columns.map((column) => (
                         <th key={column.accessor}>{column.Header}</th> //no accessor???
                     ))}
-                    <th key="button1">""</th>
-                    <th key="button2">""</th>
+                    <th key="button1">save</th>
+                    <th key="button2">delete</th>
 
                 </tr>
             </thead>
@@ -48,14 +51,14 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
                         <td>{entry.email}</td>
                         <td>{entry.role}</td> */}
                         {columns.map((column) => (
-                            <td key={column.accessor}>{entry[column.accessor]}
+                            <td key={column.accessor}>
                                 <CInput
                                     className={isEditing ? "CTable-input-edit" : "CTable-input"}
                                     type="text"
-                                    placeholder={entry[column.accessor] || "N/A"}
+                                    placeholder={entry[column.accessor] !== undefined ? entry[column.accessor] : "N/A"}
                                     name={column.accessor}
                                     disabled={!isEditing ? "disabled" : ""}
-                                    value={editedData[column.accessor] || "N/A"}
+                                    value={isEditing && editedData[column.accessor] !== undefined ? editedData[column.accessor] : entry[column.accessor] || "N/A"}
                                     onChangeFunction={(e) => setEditedData({...editedData, [column.accessor]: e.target.value})}
                                 />
                             </td>

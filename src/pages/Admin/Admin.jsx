@@ -38,10 +38,6 @@ export const Admin = () => {
         }
         isLoading && retries > 0 ? fetchData() : setIsLoading(false);
     }, [retries, isLoading]);
-    //     dataType !== "" && retries > 0 ? fetchData() : setIsLoading(false);
-    // }, [retries, dataType]);
-
-    console.log(data);
 
     const getData = (dataType) => {
         switch (dataType) {
@@ -106,39 +102,13 @@ export const Admin = () => {
             :
                 data.length > 0 
                     ?
-                    // dataType === "users" ? 
-                    // <div className="admin-data">
-                    //     {data.map((item) => (
-                    //         <div className="admin-data-item" key={item._id}>
-                    //             <h3>{item.userName}</h3>
-                    //         </div>
-                    //     ))}
-                    // </div>
-                    <CTable
-                        data={data}
-                        saveChanges={saveChanges}
-                        deleteEntry={deleteEntry}
-                    />
-                    // :
-                    // dataType === "posts" ?
-                    // <div className="admin-data">
-                    //     {data.map((item) => (
-                    //         <div className="admin-data-item" key={item._id}>
-                    //             <h3>{item.image}</h3>
-                    //         </div>
-                    //     ))}
-                    // </div>
-                    // :
-                    // dataType === "comments" ?
-                    // <div className="admin-data">
-                    //     {data.map((item) => (
-                    //         <div className="admin-data-item" key={item._id}>
-                    //             <h3>{item.comment}</h3>
-                    //         </div>
-                    //     ))}
-                    // </div>
-                    // :
-                    // <h1>Admin Page</h1>
+                    <div className="admin-table">
+                        <CTable
+                            data={data}
+                            saveChanges={saveChanges}
+                            deleteEntry={deleteEntry}
+                        />
+                    </div>
                 :
                 <h1>No data available</h1>
                 
