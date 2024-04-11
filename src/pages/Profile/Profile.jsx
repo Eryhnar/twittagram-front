@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { userData } from "../../app/slices/userSlice";
-import { getProfileService, toggleFriendService } from "../../services/apiCalls";
+import { getProfileService, toggleFollowService, toggleFriendService } from "../../services/apiCalls";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useNavigate } from "react-router-dom";
 import { updateUser } from "../../app/slices/userSlice";
@@ -61,6 +61,29 @@ export const Profile = () => {
         }
     }
 
+    const toggleFollow = async (id) => {
+        try {
+            console.log("hi");
+            const response = await toggleFollowService(rdxUser.credentials.token, id);
+            console.log(response);
+            dispatch(updateUser({
+                user: {
+                    ...rdxUser.credentials.user,
+                    following: response.data.following
+                }
+            }));
+            console.log(rdxUser.credentials.user);
+            setProfile({
+                ...profile,
+                followers: profile.followers.includes(rdxUser.credentials.user.id) 
+                    ? profile.followers.filter(id => id !== rdxUser.credentials.user.id) 
+                    : [...profile.followers, rdxUser.credentials.user.id]
+            })
+        } catch (error) {
+            setErrorMsg({ message: error.message, success: false });
+        }
+    }
+
     return (
 
         <div className="profile-design">
@@ -93,7 +116,7 @@ export const Profile = () => {
                                 <div>edit profile</div>
                                 :
                                 <>
-                                    <div>follow</div>
+                                    <div onClick={() => toggleFollow(profile._id)}>{rdxUser.credentials.user.following.includes(profile._id) ? "unfollow" : "follow"}</div>
                                     <div onClick={() => toggleFriend(profile._id)}>{rdxUser.credentials.user.friends.includes(profile._id) ? "remove friend" : "add friend"}</div>
                                 </>
                             }
