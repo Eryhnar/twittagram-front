@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { userData } from "../../app/slices/userSlice";
-import { getProfileService } from "../../services/apiCalls";
+import { getProfileService, toggleFriendService } from "../../services/apiCalls";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useNavigate } from "react-router-dom";
+import { updateUser } from "../../app/slices/userSlice";
 
 export const Profile = () => {
     const navigate = useNavigate();
@@ -45,6 +46,16 @@ export const Profile = () => {
     // }, [retries])
     }, [retries, rdxDetail.details.userHandle])
 
+    const toggleFriend = async (id) => {
+        try {
+            const response = await toggleFriendService(rdxUser.credentials.token, id);
+
+            // console.log(response);
+        } catch (error) {
+            setErrorMsg({ message: error.message, success: false });
+        }
+    }
+
     return (
 
         <div className="profile-design">
@@ -78,7 +89,7 @@ export const Profile = () => {
                                 :
                                 <>
                                     <div>follow</div>
-                                    <div>add friend</div>
+                                    <div onClick={() => toggleFriend(profile._id)}>add friend</div>
                                 </>
                             }
                         </div>
