@@ -74,6 +74,15 @@
     color: crimson;
 }
 
+.saved {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
+    color: rgb(43, 43, 164);
+}
+
 @media (min-width: 768px){
     .home-container{
         min-height: 90svh;
