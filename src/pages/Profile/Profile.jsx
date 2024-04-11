@@ -49,8 +49,13 @@ export const Profile = () => {
     const toggleFriend = async (id) => {
         try {
             const response = await toggleFriendService(rdxUser.credentials.token, id);
-
             // console.log(response);
+            dispatch(updateUser({
+                user: {
+                    ...rdxUser.credentials.user,
+                    friends: response.data.friends
+                }
+            }));
         } catch (error) {
             setErrorMsg({ message: error.message, success: false });
         }
@@ -89,7 +94,7 @@ export const Profile = () => {
                                 :
                                 <>
                                     <div>follow</div>
-                                    <div onClick={() => toggleFriend(profile._id)}>add friend</div>
+                                    <div onClick={() => toggleFriend(profile._id)}>{rdxUser.credentials.user.friends.includes(profile._id) ? "remove friend" : "add friend"}</div>
                                 </>
                             }
                         </div>
