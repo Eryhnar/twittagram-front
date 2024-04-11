@@ -172,3 +172,22 @@ export const toggleSaveService = async (token, postId) => {
     }
     return parsedResponse;
 }
+
+export const toggleFriendService = async (token, userId) => {
+    const response = await fetch(root + "users/friends", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ targetUserId: userId }),
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}

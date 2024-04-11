@@ -1,6 +1,6 @@
 import "./Home.css";
 import { useSelector, useDispatch } from "react-redux";
-import { userData } from "../../app/slices/userSlice";
+import { updateUser, userData } from "../../app/slices/userSlice";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState, useEffect } from "react";
 import { getTimelineService, toggleLikeService, toggleSaveService } from "../../services/apiCalls";
@@ -73,20 +73,21 @@ export const Home = () => {
     const toggleSave = async (postId) => {
         try {
             // console.log(postId);
-            console.log(rdxUser.credentials.user);
-            console.log(rdxUser.credentials.user.saved);
+            // console.log(rdxUser.credentials.user);
+            // console.log(rdxUser.credentials.user.saved);
             const response = await toggleSaveService(token, postId);
             // console.log(response);
+            // dispatch(updateUser({ token: rdxUser.credentials.token, user: response.data }));
             rdxUser.credentials.user.saved.includes(postId) 
             ? dispatch(updateUser({ 
-                token: rdxUser.credentials.token,
+                // token: rdxUser.credentials.token,
                 user: {
                     ...rdxUser.credentials.user,
                     saved: rdxUser.credentials.user.saved.filter(id => id !== postId) 
                 }
             })) 
             : dispatch(updateUser({ 
-                token: rdxUser.credentials.token,
+                // token: rdxUser.credentials.token,
                 user: {
                     ...rdxUser.credentials.user,
                     saved: [...rdxUser.credentials.user.saved, postId] 
