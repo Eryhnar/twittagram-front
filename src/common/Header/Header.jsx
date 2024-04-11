@@ -3,10 +3,15 @@ import "./Header.css";
 import { useSelector, useDispatch } from "react-redux";
 import { userData, logout } from "../../app/slices/userSlice";
 import { saveDetails } from "../../app/slices/detailSlice";
+import { CButton } from "../CButton/CButton";
 
 export const Header = () => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
+
+    const createPost = () => {
+        console.log("create post");
+    }
     return (
         <div className="header-design">
             {/* <div className="header-title"> */}
@@ -17,6 +22,11 @@ export const Header = () => {
                 {rdxUser.credentials.token 
                     ? 
                     <>
+                        <CButton 
+                            className={"header-button"}
+                            title={"Post"}
+                            onClickFunction={() => createPost()}
+                        />
                         {rdxUser.credentials.user.role.includes("admin") &&
                             <NavButton
                                 title="Admin"
