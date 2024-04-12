@@ -49,14 +49,14 @@ export const Home = () => {
         // console.log(post._id);
         try {
             const response = await toggleLikeService(token, post._id);
-            // console.log(response);
+            console.log(response);
                 // console.log(post.likes);
                 // setRetries(3);
                 setTimeline(timeline.map(item => 
                     item._id === post._id 
-                        ? {...item, likes: post.likes.includes(rdxUser.credentials.user.id) 
-                            ? item.likes.filter(id => id !== rdxUser.credentials.user.id) 
-                            : [...item.likes, rdxUser.credentials.user.id]
+                        ? {
+                            ...item, 
+                            likes: response.data.likes
                         } 
                         : item
                 ));
