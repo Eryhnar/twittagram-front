@@ -49,7 +49,7 @@ export const Home = () => {
         // console.log(post._id);
         try {
             const response = await toggleLikeService(token, post._id);
-            console.log(response);
+            // console.log(response);
                 // console.log(post.likes);
                 // setRetries(3);
                 setTimeline(timeline.map(item => 

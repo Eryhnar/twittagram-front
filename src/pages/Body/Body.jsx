@@ -6,6 +6,7 @@ import { Login } from '../Login/Login';
 import { Profile } from '../Profile/Profile';
 import { Admin } from '../Admin/Admin';
 import { Posts } from '../Posts/Posts';
+import { CreatePost } from '../CreatePost/CreatePost';
 
 export const Body = () => {
     return (
@@ -32,6 +33,9 @@ export const Body = () => {
             {/* <Route path="/:user/posts" element={<SecureRoute protMode="allow-logged-in" />}>
                 <Route index element={<Posts />} />
             </Route> */}
+            <Route path="/create-post" element={<SecureRoute protMode="allow-logged-in" />}>
+                <Route index element={<CreatePost />} />
+            </Route>
             <Route path="/:user/posts" element={<Posts />}/>
             {/* <Route path="/catalogue" element={<Catalogue />} /> */}
             <Route path="*" element={<Navigate to={"/"} replace/>} />

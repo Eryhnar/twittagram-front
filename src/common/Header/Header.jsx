@@ -22,10 +22,14 @@ export const Header = () => {
                 {rdxUser.credentials.token 
                     ? 
                     <>
-                        <CButton 
+                        {/* <CButton 
                             className={"header-button"}
                             title={"Post"}
                             onClickFunction={() => createPost()}
+                        /> */}
+                        <NavButton
+                            title="+"
+                            path="/create-post"
                         />
                         {rdxUser.credentials.user.role.includes("admin") &&
                             <NavButton
