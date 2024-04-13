@@ -4,11 +4,16 @@ import { CButton } from "../../common/CButton/CButton"
 import { CInput } from "../../common/CInput/CInput"
 import { useState } from "react";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
-import { updateProfileService } from "../../services/apiCalls";
+import { suspendAccountService, updateProfileService } from "../../services/apiCalls";
+import { CCard } from "../../common/CCard/CCard";
+import { logout } from "../../app/slices/userSlice";
+import "./UpdateProfile.css"
+import { useNavigate } from "react-router-dom";
 
 export const UpdateProfile = () => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [updatedProfile, setUpdateProfile] = useState({
         userName: rdxUser.credentials.user.userName,
@@ -20,9 +25,22 @@ export const UpdateProfile = () => {
         message: "",
         success: false
     });
+    const [isOpenSuspend, setIsOpenSuspend] = useState(false);
+    const [suspendCredentials, setSuspendCredentials] = useState({
+        password: "",
+        confirmPassword: ""
+    });
+    const [popupCounter, setPopupCounter] = useState(0);
 
     const inputHandler = (e) => {
         setUpdateProfile((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const suspendInputHandler = (e) => {
+        setSuspendCredentials((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
@@ -46,6 +64,28 @@ export const UpdateProfile = () => {
                 message: error.message, 
                 success: false 
             });
+            setPopupCounter(prevState => prevState + 1);
+        }
+    }
+
+    const verifyPassword = async () => {
+        return suspendCredentials.password === suspendCredentials.confirmPassword;
+    }
+
+    const suspendAccount = async () => { 
+        try {
+            if (!verifyPassword()) {
+                throw new Error("Passwords do not match");
+            }
+            const response = await suspendAccountService(rdxUser.credentials.token, suspendCredentials.password);
+            console.log(response);
+            dispatch(logout({ credentials: "" }));
+        } catch (error) {
+            setErrorMsg({ 
+                message: error.message, 
+                success: false 
+            });
+            setPopupCounter(prevState => prevState + 1);
         }
     }
 
@@ -53,6 +93,7 @@ export const UpdateProfile = () => {
         <div>
             {errorMsg.message && 
                 <TimedPopupMsg
+                    key={popupCounter}
                     message={errorMsg.message}
                     success={errorMsg.success}
                     time={4000}
@@ -96,12 +137,54 @@ export const UpdateProfile = () => {
             <CButton
                 className="update-profile-button"
                 title="Cancel"
-                onClickFunction={() => {}}
+                onClickFunction={() => {navigate("/profile")}}
             />
             <CButton
                 className="update-profile-button"
                 title="Delete Account"
-                onClickFunction={() => {}}
+                onClickFunction={() => setIsOpenSuspend(true)}
+            />
+            <CCard
+                className={isOpenSuspend ? "suspend-account-card" : "suspend-account-card-hidden"}
+                title="Suspend Account"
+                content={
+                    <div>
+                        <p>Are you sure you want to delete your account?</p>
+                        <CInput
+                            className="suspend-account-input"
+                            type="password"
+                            placeholder="Password"
+                            name="password"
+                            value={suspendCredentials.password || ""}
+                            onChangeFunction={(e) => suspendInputHandler(e)}
+                        />
+                        <CInput
+                            className="suspend-account-input"
+                            type="password"
+                            placeholder="Confirm Password"
+                            name="confirmPassword"
+                            value={suspendCredentials.confirmPassword || ""}
+                            onChangeFunction={(e) => suspendInputHandler(e)}
+                        />
+                        <CButton
+                            className="suspend-account-button"
+                            title="Suspend Account"
+                            onClickFunction={suspendAccount}
+                        />
+                        <CButton   
+                            className="suspend-account-button"
+                            title="Cancel"
+                            onClickFunction={() => {
+                                setIsOpenSuspend(false)
+                                setSuspendCredentials({
+                                    password: "",
+                                    confirmPassword: ""
+                                });
+                            }}
+                        />
+                    </div>
+                }
+                onClickFunction={suspendAccount}
             />
         </div>
     )

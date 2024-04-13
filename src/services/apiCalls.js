@@ -253,7 +253,7 @@ export const updateProfileService = async (token, profile) => {
     return parsedResponse;
 }
 
-export const suspendUserService = async (token, password) => {
+export const suspendAccountService = async (token, password) => {
     const response = await fetch(root + "users/profile/deactivate", {
         method: "PUT",
         headers: {
