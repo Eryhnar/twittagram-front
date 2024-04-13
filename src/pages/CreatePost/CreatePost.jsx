@@ -8,9 +8,13 @@ import { CCard } from "../../common/CCard/CCard";
 import processTag from "../../utils/processTag";
 import isValidHashtag from "../../utils/isValidHashtag";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
+import { createPostService } from "../../services/apiCalls";
+import { useSelector } from "react-redux";
+import { userData } from "../../app/slices/userSlice";
 
 export const CreatePost = () => {
     // const [imageUrl, setImageUrl] = useState("");
+    const rdxUser = useSelector(userData);
     const [newPost, setNewPost] = useState({
         imageUrl: "",
         caption: "",
@@ -81,6 +85,29 @@ export const CreatePost = () => {
             return;
         }
     }
+
+    const createPost = async () => { //TODO review verifyPost and possibly do the handling from here
+        try {
+            verifyPost(newPost)
+            if (errorMsg.message) {
+                return;
+            }
+            const response = await createPostService(rdxUser.credentials.token ,newPost);
+            setErrorMsg({
+                message: response.message,
+                success: response.success
+            })
+            setPopCounter(prevState => prevState + 1);
+        } catch (error) {
+            setErrorMsg({
+                message: error.message,
+                success: false
+            })
+            setPopCounter(prevState => prevState + 1);
+        }
+
+    }
+
 
     const validateTag = () => {
         const processedTag = processTag(newTag);
@@ -192,7 +219,7 @@ export const CreatePost = () => {
             <CButton
                 className="create-post-button"
                 title="Post"
-                onClickFunction={() => verifyPost(newPost)}
+                onClickFunction={createPost}
             />
         </div>
     )
