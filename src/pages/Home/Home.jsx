@@ -125,6 +125,8 @@ export const Home = () => {
                         <div className="timeline-posts" key={post._id}>
                             <PostCard
                                 post={post}
+                                toggleLike={toggleLike}
+                                toggleSave={toggleSave}
                             />
                         </div>
                     ))}
