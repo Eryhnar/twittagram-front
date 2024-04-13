@@ -233,3 +233,22 @@ export const createPostService = async (token, post) => {
     }
     return parsedResponse;
 }
+
+export const updateProfileService = async (token, profile) => {
+    const response = await fetch(root + "users/profile", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(profile),
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}
