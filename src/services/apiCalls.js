@@ -252,3 +252,22 @@ export const updateProfileService = async (token, profile) => {
     }
     return parsedResponse;
 }
+
+export const suspendUserService = async (token, password) => {
+    const response = await fetch(root + "users/profile/deactivate", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({ password: password }),
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}
