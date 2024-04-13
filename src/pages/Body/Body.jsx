@@ -7,6 +7,7 @@ import { Profile } from '../Profile/Profile';
 import { Admin } from '../Admin/Admin';
 import { Posts } from '../Posts/Posts';
 import { CreatePost } from '../CreatePost/CreatePost';
+import { UpdateProfile } from '../UpdateProfile/UpdateProfile';
 
 export const Body = () => {
     return (
@@ -37,7 +38,9 @@ export const Body = () => {
                 <Route index element={<CreatePost />} />
             </Route>
             <Route path="/:user/posts" element={<Posts />}/>
-            {/* <Route path="/catalogue" element={<Catalogue />} /> */}
+            <Route path="/update-profile" element={<SecureRoute protMode="allow-logged-in" />}>
+                <Route index element={<UpdateProfile />} />
+            </Route>
             <Route path="*" element={<Navigate to={"/"} replace/>} />
         </Routes>
         

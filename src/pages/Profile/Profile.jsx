@@ -113,7 +113,7 @@ export const Profile = () => {
                         <div className="profile-interactions">
                             {rdxUser.credentials.user.userHandle == profile.userHandle
                                 ?
-                                <div>edit profile</div>
+                                <div onClick={() => navigate("/update-profile")}>edit profile</div>
                                 :
                                 <>
                                     <div onClick={() => toggleFollow(profile._id)}>{rdxUser.credentials.user.following.includes(profile._id) ? "unfollow" : "follow"}</div>
