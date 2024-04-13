@@ -4,11 +4,12 @@ import { CButton } from "../../common/CButton/CButton"
 import { CInput } from "../../common/CInput/CInput"
 import { useState } from "react";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
-import { suspendAccountService, updateProfileService } from "../../services/apiCalls";
+import { changePasswordService, suspendAccountService, updateProfileService } from "../../services/apiCalls";
 import { CCard } from "../../common/CCard/CCard";
 import { logout } from "../../app/slices/userSlice";
 import "./UpdateProfile.css"
 import { useNavigate } from "react-router-dom";
+import isValidPassword from "../../utils/isValidPassword";
 
 export const UpdateProfile = () => {
     const rdxUser = useSelector(userData);
@@ -32,6 +33,11 @@ export const UpdateProfile = () => {
     });
     const [popupCounter, setPopupCounter] = useState(0);
     const [isOpenPassword, setIsOpenPassword] = useState(false);
+    const [password, setPassword] = useState({
+        oldPassword: "",
+        newPassword: "",
+        confirmPassword: ""
+    });
 
     const inputHandler = (e) => {
         setUpdateProfile((prevState) => ({
@@ -42,6 +48,13 @@ export const UpdateProfile = () => {
 
     const suspendInputHandler = (e) => {
         setSuspendCredentials((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+    };
+
+    const passwordInputHandler = (e) => {
+        setPassword((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
@@ -60,6 +73,10 @@ export const UpdateProfile = () => {
                     bio: response.data.bio
                 }
             }));
+            setErrorMsg({
+                message: response.message,
+                success: true
+            });
         } catch (error) {
             setErrorMsg({ 
                 message: error.message, 
@@ -69,18 +86,54 @@ export const UpdateProfile = () => {
         }
     }
 
-    const verifyPassword = async () => {
-        return suspendCredentials.password === suspendCredentials.confirmPassword;
+    const verifyPasswordMatch = (password1, password2) => {
+        return password1 === password2;
+    }
+
+    const validatePasswords = (passwords) => {
+        for (let i in passwords) {
+            if (!isValidPassword(passwords[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 
     const suspendAccount = async () => { 
         try {
-            if (!verifyPassword()) {
+            if (!verifyPassword(suspendCredentials.password, suspendCredentials.confirmPassword)) { // NOT needed
                 throw new Error("Passwords do not match");
             }
+
             const response = await suspendAccountService(rdxUser.credentials.token, suspendCredentials.password);
             console.log(response);
             dispatch(logout({ credentials: "" }));
+        } catch (error) {
+            setErrorMsg({ 
+                message: error.message, 
+                success: false 
+            });
+            setPopupCounter(prevState => prevState + 1);
+        }
+    }
+
+
+
+    const changePassword = async () => {
+        console.log(password);
+        try {
+            if (password.newPassword !== password.confirmPassword) { 
+                throw new Error("Passwords do not match");
+            }
+            if (!validatePasswords(password)) {
+                throw new Error("Password does not meet requirements");
+            }
+            const response = await changePasswordService(rdxUser.credentials.token, password);
+            setErrorMsg({
+                message: response.message,
+                success: true
+            });
+            console.log(response);
         } catch (error) {
             setErrorMsg({ 
                 message: error.message, 
@@ -142,8 +195,8 @@ export const UpdateProfile = () => {
                                 type="password"
                                 placeholder="Old Password"
                                 name="oldPassword"
-                                value={""}
-                                onChangeFunction={(e) => {}}
+                                value={password.oldPassword || ""}
+                                onChangeFunction={(e) => passwordInputHandler(e)}
                             />
                         </div>
                         <div>
@@ -153,8 +206,8 @@ export const UpdateProfile = () => {
                                 type="password"
                                 placeholder="New Password"
                                 name="newPassword"
-                                value={""}
-                                onChangeFunction={(e) => {}}
+                                value={password.newPassword || ""}
+                                onChangeFunction={(e) => passwordInputHandler(e)}
                             />
                         </div>
                         <div>
@@ -164,19 +217,26 @@ export const UpdateProfile = () => {
                                 type="password"
                                 placeholder="Confirm Password"
                                 name="confirmPassword"
-                                value={""}
-                                onChangeFunction={(e) => {}}
+                                value={password.confirmPassword || ""}
+                                onChangeFunction={(e) => passwordInputHandler(e)}
                             />
                         </div>
                         <CButton
                             className="change-password-button"
                             title="Change Password"
-                            onClickFunction={() => {}}
+                            onClickFunction={changePassword}
                         />
                         <CButton
                             className="change-password-button"
                             title="Cancel"
-                            onClickFunction={() => setIsOpenPassword(false)}
+                            onClickFunction={() => {
+                                setIsOpenPassword(false)
+                                setPassword({
+                                    oldPassword: "",
+                                    newPassword: "",
+                                    confirmPassword: ""
+                                });
+                            }}
                         />
                     </div>
                 }
