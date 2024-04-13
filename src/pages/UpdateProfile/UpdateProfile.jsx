@@ -31,6 +31,7 @@ export const UpdateProfile = () => {
         confirmPassword: ""
     });
     const [popupCounter, setPopupCounter] = useState(0);
+    const [isOpenPassword, setIsOpenPassword] = useState(false);
 
     const inputHandler = (e) => {
         setUpdateProfile((prevState) => ({
@@ -127,7 +128,59 @@ export const UpdateProfile = () => {
             <CButton
                 className="update-profile-button"
                 title="Change Password"
-                onClickFunction={() => {}}
+                onClickFunction={() => setIsOpenPassword(true)}
+            />
+            <CCard
+                className={isOpenPassword ? "change-password-card" : "change-password-card-hidden"}
+                title=""
+                content={
+                    <div>
+                        <div>
+                            <p>Old Password</p>
+                            <CInput
+                                className="change-password-input"
+                                type="password"
+                                placeholder="Old Password"
+                                name="oldPassword"
+                                value={""}
+                                onChangeFunction={(e) => {}}
+                            />
+                        </div>
+                        <div>
+                            <p>New Password</p>
+                            <CInput
+                                className="change-password-input"
+                                type="password"
+                                placeholder="New Password"
+                                name="newPassword"
+                                value={""}
+                                onChangeFunction={(e) => {}}
+                            />
+                        </div>
+                        <div>
+                            <p>Confirm Password</p>
+                            <CInput
+                                className="change-password-input"
+                                type="password"
+                                placeholder="Confirm Password"
+                                name="confirmPassword"
+                                value={""}
+                                onChangeFunction={(e) => {}}
+                            />
+                        </div>
+                        <CButton
+                            className="change-password-button"
+                            title="Change Password"
+                            onClickFunction={() => {}}
+                        />
+                        <CButton
+                            className="change-password-button"
+                            title="Cancel"
+                            onClickFunction={() => setIsOpenPassword(false)}
+                        />
+                    </div>
+                }
+                image=""
             />
             <CButton
                 className="update-profile-button"

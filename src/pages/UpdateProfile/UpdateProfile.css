@@ -1,3 +1,7 @@
 .suspend-account-card-hidden {
   display: none;
 }
+
+.change-password-card-hidden {
+    display: none;
+}
