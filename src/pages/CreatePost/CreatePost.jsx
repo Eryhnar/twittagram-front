@@ -5,6 +5,9 @@ import { CInput } from "../../common/CInput/CInput";
 import { CDropdown } from "../../common/CDropdown/CDropdown";
 import { CButton } from "../../common/CButton/CButton";
 import { CCard } from "../../common/CCard/CCard";
+import processTag from "../../utils/processTag";
+import isValidHashtag from "../../utils/isValidHashtag";
+import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 
 export const CreatePost = () => {
     // const [imageUrl, setImageUrl] = useState("");
@@ -18,9 +21,10 @@ export const CreatePost = () => {
     const [newTag, setNewTag] = useState("");
     const [errorMsg, setErrorMsg] = useState({
         serverError: {message: "", success: false},
-        imageError: "",
-        visibilityError: "",
+        // imageError: "", //TODO check if needed
+        // visibilityError: "", //TODO check if needed
     });
+    const [popCounter, setPopCounter] = useState(0);
 
     useEffect(() => {
         console.log("New Post: ", newPost);
@@ -44,19 +48,20 @@ export const CreatePost = () => {
             ...newPost,
             [e.target.name]: e.target.value
         })
+        setPopCounter(prevState => prevState + 1);
     }
     // const handleTagChange = (e) => {
     //     setNewTag(e.target.value);
     // }
 
-    const processTag = (tag) => {
-        tag = tag.replace(/\s/g, "");
+    // const processTag = (tag) => {
+    //     tag = tag.replace(/\s/g, "");
     
-        if (tag[0] !== "#") {
-            return "#" + tag.toLowerCase();
-        }
-        return tag.toLowerCase();
-    }
+    //     if (tag[0] !== "#") {
+    //         return "#" + tag.toLowerCase();
+    //     }
+    //     return tag.toLowerCase();
+    // }
 
     const verifyPost = (post) => {
         if (post.imageUrl === "") {
@@ -64,6 +69,7 @@ export const CreatePost = () => {
                 message: "Please upload an image",
                 success: false
             })
+            setPopCounter(prevState => prevState + 1);
             return;
         }
         if (post.visibility === "") {
@@ -71,12 +77,48 @@ export const CreatePost = () => {
                 message: "Please select a visibility option",
                 success: false
             })
+            setPopCounter(prevState => prevState + 1);
             return;
+        }
+    }
+
+    const validateTag = () => {
+        const processedTag = processTag(newTag);
+        if (isValidHashtag(processedTag)) {
+            setNewPost(
+                {
+                    ...newPost, 
+                    tags: [...newPost.tags, processedTag]
+                }); 
+            setNewTag("")
+            setIsNewTagOpen(false)
+        } else {
+            // setErrorMsg({
+            //     ...errorMsg,
+            //     serverError: {
+            //         message: "Invalid Tag",
+            //         success: false
+            //     }
+            // })
+            setErrorMsg({
+                message: "Invalid Tag",
+                success: false
+            })
+            setPopCounter(prevState => prevState + 1);
         }
     }
     
     return (
         <div>
+            {errorMsg.message && 
+                <TimedPopupMsg
+                    key={popCounter}
+                    message={errorMsg.message}
+                    success={errorMsg.success}
+                    time={5000}
+                    resetServerError={() => setErrorMsg({message: "", success: false})}
+                />
+            }
 
             <div className="create-post-img-container">
                 <img src={newPost.imageUrl || "https://via.placeholder.com/150"} alt="Post Image" />
@@ -127,14 +169,7 @@ export const CreatePost = () => {
                 <CButton 
                     className="create-post-button"
                     title="create tag"
-                    onClickFunction={() => {setNewPost(
-                        {
-                            ...newPost, 
-                            tags: [...newPost.tags, processTag(newTag)]
-                        }); 
-                        setNewTag("")
-                        setIsNewTagOpen(false)
-                    }}
+                    onClickFunction={validateTag}
                 />
                 <CButton
                     className="create-post-button"
