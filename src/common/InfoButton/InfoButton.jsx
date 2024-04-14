@@ -13,6 +13,7 @@ export const InfoButton = ({ className, title, info }) => {
         <div 
         className={className || "default-info-button"} 
         onClick={handleClick}
+        // onTouchStart={handleClick}
         onMouseEnter={() => setShowHoverInfo(true)}
         onMouseLeave={() => setShowHoverInfo(false)}
         >

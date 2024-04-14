@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { saveDetails } from "../../app/slices/detailSlice";
+import "./PostCard.css"
 
 export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPostId}) => {
     const rdxUser = useSelector(userData);
@@ -102,36 +103,38 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
     // }
 
     return (
-        <div className="timeline-post" ref={postRef}>
+        <div className="post-card" ref={postRef}>
             {/* <div key={post._id} className="post" onClick={() => {
                                 console.log(post);
                                 dispatch(saveDetails({ details: post }));
                             }}> */}
             {/* <h3>{post.author.userName}</h3> */}
-            <div className="timeline-post-header">
-                <div className="timeline-post-author-img" onClick={() => {
-                    // console.log(post.author);
-                    dispatch(saveDetails(post.author))
-                    navigate("/profile");
-                }}>
-                    <img src={post.author.profilePicture} alt="author image" />
-                </div>
-                {/* {post.author.profilePicture}</div> */}
-
-                <div className="timeline-post-header-author-info">
-                    <div onClick={() => {
+            <div className="post-card-header">
+                <div className="post-card-header-left">
+                    <div className="post-card-author-img" onClick={() => {
+                        // console.log(post.author);
                         dispatch(saveDetails(post.author))
                         navigate("/profile");
-                    }}>{post.author.userName}</div>
-                    <div>{post.author.userHandle}</div>
+                    }}>
+                        <img src={post.author.profilePicture} alt="author image" />
+                    </div>
+                    <div className="post-card-header-author-info">
+                        <div onClick={() => {
+                            dispatch(saveDetails(post.author))
+                            navigate("/profile");
+                        }}>{post.author.userName}</div>
+                        <div>{post.author.userHandle}</div>
+                    </div>
+                    <div className="post-card-time">{timeSince(new Date(post.createdAt))}</div>
                 </div>
+                    {post.author.userHandle === rdxUser.credentials.user.userHandle &&
+                        <div onClick={() => setIsOpenOptions(true)}><span className="material-symbols-outlined">more_vert</span></div>
+                    }
+                {/* {post.author.profilePicture}</div> */}
+
                 {/* <div>{post.createdAt}</div> */}
-                <div>{timeSince(new Date(post.createdAt))}</div>
-                {post.author.userHandle === rdxUser.credentials.user.userHandle &&
-                    <div onClick={() => setIsOpenOptions(true)}><span className="material-symbols-outlined">more_vert</span></div>
-                }
                 {isOpenOptions && 
-                    <div className="timeline-post-options">
+                    <div className="post-card-options">
                         <div onClick={() => {
                             dispatch(saveDetails(post));
                             navigate("/edit-post");
@@ -157,25 +160,44 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
                                     /> */}
             {/* <img src={post.author.profilePicture} alt="author image" /> */}
             {/* </div> */}
-            <div className="timeline-post-img" onClick={() => {
+            <div className="post-card-img" onClick={() => {
                 dispatch(saveDetails(post))
             }}>
                 <img src={post.image} alt="post" />
             </div>
-            <p>{post.caption}</p>
-            <div>{post.tags}</div>
-            <div className="timeline-post-interactions-container">
-                <div className="post-interaction-buttons">
-                    <div onClick={() => toggleLike(post)}><span className={`material-symbols-outlined ${post.likes.includes(rdxUser.credentials.user.id) ? "favorited" : null}`} /*TODO style here*/ >favorite</span></div>
-                    <div><span className="material-symbols-outlined">add_comment</span></div>
-                    <div onClick={() => toggleSave(post._id)}><span className={`material-symbols-outlined ${rdxUser.credentials.user.saved.includes(post._id) ? "saved" : null}`}>bookmark</span></div>
-                </div>
-                <div className="post-interaction-statistics">
-                    <div>{post.likes.length}</div>
-                    <div>likes</div>
+            <div className="post-card-text">
+                <p>{post.caption}</p>
+                <div>{post.tags}</div>
+            </div>
+            <div className="post-card-interactions-container">
+                {/* <div className="post-interaction-buttons"> */}
+                    {/* <div onClick={() => toggleLike(post)}><span className={`material-symbols-outlined ${post.likes.includes(rdxUser.credentials.user.id) ? "favorited" : null}`}>favorite</span></div> */}
+                    {/* <div><span className="material-symbols-outlined">add_comment</span></div> */}
+                    {/* <div onClick={() => toggleSave(post._id)}><span className={`material-symbols-outlined ${rdxUser.credentials.user.saved.includes(post._id) ? "saved" : null}`}>bookmark</span></div> */}
+                {/* </div> */}
+                {/* <div className="post-interaction-statistics"> */}
+                    {/* <div>{post.likes.length}</div>
+                    <div>likes</div> */}
                     {/* <div>{post.comments.length}</div> */}
-                    <div>comments</div>
+                    {/* <div>comments</div> */}
                     {/* <div>{post.comments}</div> */}
+                {/* </div> */}
+                <div className="post-like-container">
+                    <div onClick={() => toggleLike(post)}><span className={`material-symbols-outlined ${post.likes.includes(rdxUser.credentials.user.id) ? "favorited" : null}`} /*TODO style here*/ >favorite</span></div>
+                    <div className="post-interaction-statistics">
+                        <div>{post.likes.length}</div>
+                        <div>likes</div>
+                    </div>
+                </div>
+                <div className="post-comment-container">
+                    <div><span className="material-symbols-outlined">add_comment</span></div>
+                    <div className="post-interaction-statistics">
+                        <div>comments</div>
+                    </div>
+                    {/* <div>{post.comments.length}</div> */}
+                </div>
+                <div className="post-save-container">
+                <div onClick={() => toggleSave(post._id)}><span className={`material-symbols-outlined ${rdxUser.credentials.user.saved.includes(post._id) ? "saved" : null}`}>bookmark</span></div>
                 </div>
             </div>
         </div>

@@ -88,7 +88,7 @@ export const Register = () => {
                                     value={user.userName || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                <div className="info-button-wrapper"><InfoButton/></div>
+                                <div className="info-button-wrapper"><InfoButton info={"Handle must be between 3 and 20 characters. Can contain lower case letters and numbers. Can contain . _ and - but not consecutively. "}/></div>
                             </div>
                             <div className={errorMsg.userNameError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.userNameError}</div>
 
@@ -105,7 +105,7 @@ export const Register = () => {
                                     value={user.email || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                <div className="info-button-wrapper"><InfoButton/></div>
+                                {/* <div className="info-button-wrapper"><InfoButton/></div> */}
                             </div>
                             <div className={errorMsg.emailError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.emailError}</div>
                         </div>
@@ -121,7 +121,7 @@ export const Register = () => {
                                     value={user.password || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                <div className="info-button-wrapper"><InfoButton/></div>
+                                <div className="info-button-wrapper"><InfoButton info={"Password must be between 8 and 16 character. Must contain a lower case letter, a capital letter and a number. Can contain . _ - but not consecutively."}/></div>
                             </div>
                             <div className={errorMsg.passwordError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.passwordError}</div>
                         </div>
