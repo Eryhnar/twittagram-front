@@ -1,0 +1,112 @@
+.profile-design {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #333;
+    color: white;
+    min-height: 90svh;
+
+    padding-block: 2rem;
+}
+
+.profile-info-area {
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    /* margin-inline: 10rem; */
+    max-width: 80vw;
+    margin-block: 2rem;
+}
+
+.profile-picture-container {
+    max-height: 15rem;
+    max-width: 15rem;
+    background-color: rgb(65, 65, 65);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-picture-container img {
+    /* width: 100%; */
+    /* height: 100%; */
+    /* object-fit: cover; */
+    max-width: 80%;
+    display: block;
+    border-radius: 50%;
+}
+
+.profile-info-text-area {
+    background-color: rgb(65, 65, 65);
+}
+
+.profile-metrics {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    /* background-color: coral; */
+}
+
+.profile-interactions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    /* margin-inline: auto; */
+}
+
+.profile-interactions > div {
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    border-radius: 0.5rem;
+    margin-block: 0.5rem;
+    padding-inline: 0.5rem;
+    padding-block: 0.25rem;
+}
+
+.profile-posts-container {
+    max-width: 80vw;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+    gap: 1rem;
+    padding-block: 2rem;
+}
+
+/* .profile-post {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 12rem;
+    height: 12rem;
+}
+
+.profile-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */
+
+.profile-post {
+    width: 14rem;
+    height: 14rem;
+    overflow: hidden;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+}
+
+.profile-post img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 768px) {
+    .profile-info-area {
+        grid-template-columns: 1fr 2fr;
+    }
+
+}

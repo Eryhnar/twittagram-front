@@ -1,0 +1,43 @@
+.home-design{
+    min-height: 90svh;
+    background-color: #333;
+}
+
+.timeline-posts {
+    padding-block: 2rem;
+}
+
+.home-guest {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-block: 2rem;
+}
+
+.home-guest h1 {
+    padding-block: 1rem;
+}
+
+.home-guest h2 {
+    padding-block: 1rem;
+}
+
+.home-guest p {
+    padding-block: 1rem;
+}
+
+.home-guest button {
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
+    margin-block: 1rem;
+    color: black;
+    background-color: white;
+    border-radius: 0.5rem;
+}
+
+@media (min-width: 768px){
+    .home-container{
+        min-height: 90svh;
+    }
+}

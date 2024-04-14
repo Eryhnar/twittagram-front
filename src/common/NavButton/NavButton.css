@@ -1,0 +1,7 @@
+.default-nav-button {
+    cursor: pointer;
+    padding-inline: 0.5rem;
+}
+
+.default-nav-button:hover {
+}

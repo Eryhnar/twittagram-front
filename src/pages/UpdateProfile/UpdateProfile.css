@@ -1,0 +1,118 @@
+.edit-profile-design {
+    min-height: 90svh;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+    background-color: #333;
+}
+
+.edit-profile-img-container {
+    max-width: 10rem;
+    max-height: 10rem;
+    padding-block: 1rem;
+    margin-inline: auto;
+}
+
+.edit-profile-img-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    display: block;
+}
+
+.suspend-account-card-hidden {
+  display: none;
+}
+
+.change-password-card-hidden {
+    display: none;
+}
+
+.update-profile-input {
+    margin-block: 0.5rem;
+}
+
+.update-profile-button {
+    margin-block: 1rem;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.upload-wrapper {
+    margin-block: 1rem;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.change-password-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* top: calc(50% - 10rem); */
+    top: 50%;
+    /* left: calc(50% - 10rem); */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+}
+
+.change-password-input {
+    margin-block: 0.5rem;
+}
+
+.change-password-button {
+    margin-block: 1rem;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
+.suspend-account-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    /* top: calc(50% - 10rem); */
+    top: 50%;
+    /* left: calc(50% - 10rem); */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: gray;
+    width: 100%;
+    height: 100%;
+}
+
+.suspend-account-input {
+    margin-block: 0.5rem;
+}
+
+.suspend-account-button {
+    margin-block: 1rem;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}

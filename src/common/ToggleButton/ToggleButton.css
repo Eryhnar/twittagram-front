@@ -1,0 +1,37 @@
+.default-toggle-rail {
+    display: flex;
+    flex-direction: row;
+
+    width: 2rem;
+    background-color: rgb(226, 226, 226);
+    border-radius: 1rem;
+    border: 0.25rem solid black;
+    /* transition: ease 0.5s; */
+}
+.default-toggle-rail-active {
+    display: flex;
+    flex-direction: row;
+
+    width: 2rem;
+    background-color: rgb(91, 91, 91);
+    border-radius: 1rem;
+    border: 0.25rem solid black;
+}
+
+.default-indicator-button {
+    background-color: rgb(130, 130, 130);
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-left: 0;
+    transition: margin-left 1s ease;
+}
+
+.default-indicator-button-active {
+    background-color: rgb(130, 130, 130);
+    border-radius: 1rem;
+    width: 1rem;
+    height: 1rem;
+    margin-left: calc(100% - 1rem); 
+    transition: margin-left 1s ease;
+}

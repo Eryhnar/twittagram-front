@@ -1,0 +1,52 @@
+.create-post-design {
+    min-height: 90svh;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    /* background-color: blueviolet; */
+    position: relative;
+    background-color: #333;
+}
+
+.create-post-container {
+    padding-block: 2rem;
+}
+
+.create-post-img-container {
+    max-width: 10rem;
+    max-height: 10rem;
+    padding-block: 1rem;
+}
+
+.create-post-img-container img{
+    width: 100%;
+    height: 100%;
+    object-fit: contain; 
+    display: block;
+}
+
+.create-post-popup-hidden {
+    display: none;
+}
+
+.create-post-input {
+    margin-block: 0.5rem;
+}
+
+.create-post-input:disabled {
+    background-color: white;
+    color: black;
+}
+
+.create-post-button {
+    margin-block: 1rem;
+    background-color: white;
+    color: black;
+    width: fit-content;
+    padding-inline: 1rem;
+    margin-inline: auto;
+    border-radius: 0.5rem;
+    cursor: pointer;
+}
+
