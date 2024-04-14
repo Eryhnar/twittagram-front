@@ -8,8 +8,11 @@ import isValidHashtag from "../../utils/isValidHashtag"
 import { useSelector } from "react-redux"
 import { detailData } from "../../app/slices/detailSlice"
 import "./EditPost.css"
+import { editPostService } from "../../services/apiCalls"
+import { userData } from "../../app/slices/userSlice"
 
 export const EditPost = () => {
+    const rdxUser = useSelector(userData);
     const rdxPost = useSelector(detailData)
     const post = rdxPost.details;
     // console.log("Post: ", post);
@@ -17,6 +20,7 @@ export const EditPost = () => {
         caption: post.caption,
         tags: post.tags,
         visibility: post.visibility,
+        postId: post._id
     });
 
     const [isNewTagOpen, setIsNewTagOpen] = useState(false);
@@ -61,8 +65,36 @@ export const EditPost = () => {
         }
     }
 
-    const editPost = () => {
-        console.log("Edit Post: ", newPost);
+    const verifyPost = (post) => {
+        if (post.visibility === "") {
+            setErrorMsg({
+                message: "Please select a visibility option",
+                success: false
+            })
+            setPopCounter(prevState => prevState + 1);
+            return;
+        }
+    }
+
+    const editPost = async () => {
+        try {
+            verifyPost(newPost)
+            if (errorMsg.message) {
+                return;
+            }
+            const response = await editPostService(rdxUser.credentials.token ,newPost);
+            console.log(response);
+            setErrorMsg({
+                message: response.message,
+                success: response.success
+            })
+        } catch (error) {
+            setErrorMsg({
+                message: error.message,
+                success: false
+            })
+            setPopCounter(prevState => prevState + 1);
+        }
     }
 
     return (
