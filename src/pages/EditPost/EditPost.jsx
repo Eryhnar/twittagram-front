@@ -153,7 +153,8 @@ export const EditPost = () => {
                 image={newPost.imageUrl || "https://via.placeholder.com/150"}
             /> */}
             {isEditTagsOpen &&
-                post.tags.map((tag, index) => (
+            <div className="edit-post-tags-popup">
+                {post.tags.map((tag, index) => (
                     <>
                         <div key={index} className="edit-post-tags">
                             {tag}
@@ -164,10 +165,18 @@ export const EditPost = () => {
                             onClickFunction={() => setNewPost({...newPost, tags: newPost.tags.filter((_, i) => i !== index)})}
                         />
                     </>
-                ))
+                ))}
+                <CButton
+                    className="edit-post-button"
+                    title="cancel"
+                    onClickFunction={() => {
+                        setIsEditTagsOpen(false);
+                    }}
+                />
+            </div>
             }
             {isNewTagOpen && 
-                <div className="edit-post-popup">
+                <div className="edit-post-create-tags-popup">
                     <CInput
                         className="edit-post-input"
                         type="text"
@@ -204,7 +213,7 @@ export const EditPost = () => {
             />
             <CButton
                 className="edit-post-button"
-                title="Post"
+                title="Update"
                 onClickFunction={editPost}
             />
         </div>
