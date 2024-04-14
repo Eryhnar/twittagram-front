@@ -6,7 +6,7 @@ import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { saveDetails } from "../../app/slices/detailSlice";
 
-export const PostCard = ({ post, toggleLike, toggleSave}) => {
+export const PostCard = ({ post, toggleLike, toggleSave, deletePost}) => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -83,6 +83,16 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
     //         setErrorMsg({ message: error.message, success: false });
     //     }
     // }
+    // deletePost = async (postId) => {
+    //     try {
+    //         const response = await deletePostService(rdxUser.credentials.token, postId);
+    //         console.log(response);
+    //         dispatch(updateUser({ user: response.data.user }));
+    //         setPosts(posts.filter(post => post._id !== postId));
+    //     } catch (error) {
+    //         setErrorMsg({ message: error.message, success: false });
+    //     }
+    // }
 
     return (
         <div className="timeline-post">
@@ -120,8 +130,7 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
                             navigate("/edit-post");
                         }}>Edit</div>
                         <div onClick={() => {
-                            dispatch(saveDetails(post));
-                            navigate("/delete-post");
+                            deletePost(post);
                         }}>Delete</div>
                     </div>
                 }

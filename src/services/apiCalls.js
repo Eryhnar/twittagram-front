@@ -317,3 +317,21 @@ export const editPostService = async (token, post) => {
     }
     return parsedResponse;
 }
+
+export const deletePostService = async (token, postId) => {
+    const response = await fetch(root + `posts/${postId}`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}

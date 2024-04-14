@@ -3,7 +3,7 @@ import { detailData } from "../../app/slices/detailSlice"
 import { timeSince } from "../../utils/timeSince"
 import { PostCard } from "../../common/PostCard/PostCard";
 import { updateUser, userData } from "../../app/slices/userSlice";
-import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
+import { deletePostService, toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState } from "react";
 
@@ -76,6 +76,20 @@ export const Posts = () => {
         }
     }
 
+    const deletePost = async (post) => {
+        // console.log(post._id);
+        // console.log(post);
+        try {
+            if (post.author.userHandle === rdxUser.credentials.user.userHandle) {
+                const response = await deletePostService(rdxUser.credentials.token, post._id)
+                setPosts(posts.filter(i => i._id !== post._id))
+                setErrorMsg({ message: response.message, success: response.success });
+            }
+        } catch (error) {
+            setErrorMsg({ message: error.message, success: false });
+        }
+    }
+
     // return (
 
     //     {errorMsg.message !== "" && 
@@ -116,6 +130,7 @@ export const Posts = () => {
                             post={post}
                             toggleLike={toggleLike}
                             toggleSave={toggleSave}
+                            deletePost={deletePost}
                         />
                     </div>
                 ))}
