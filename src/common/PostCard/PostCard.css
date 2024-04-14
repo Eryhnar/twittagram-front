@@ -1,7 +1,7 @@
 .post-card {
     max-width: 60vw;
     margin-inline: auto;
-    background-color: rgb(66, 7, 121);
+    background-color: rgb(95, 95, 95);
     color: black;
     margin-block: 2rem;
 
@@ -20,7 +20,8 @@
     align-items: center;
     /* margin-inline: auto; */
     padding-inline: 5%;
-    background-color: brown;
+    background-color: black;
+    color: white;
 }
 
 .post-card-header-left {

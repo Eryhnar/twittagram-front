@@ -153,7 +153,7 @@ export const UpdateProfile = () => {
     }
 
     return (
-        <div className="update-profile-design">
+        <div className="edit-profile-design">
             {errorMsg.message && 
                 <TimedPopupMsg
                     key={popupCounter}

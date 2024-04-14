@@ -109,7 +109,13 @@ export const Home = () => {
         <div className="home-design">
             {!token
                 ?
-                <h1>Home</h1>
+                <div className="home-guest">
+                    <h1>Welcome to Twittagram</h1>
+                    <h2>Share your thoughts with the world</h2>
+                    <p>Sign up or log in to see your timeline</p>
+                    <button onClick={() => navigate("/signup")}>Sign Up</button>
+                    <button onClick={() => navigate("/login")}>Log In</button>
+                </div>
 
                 :
                 <>
@@ -130,6 +136,7 @@ export const Home = () => {
                             />
                         </div>
                     ))}
+                    {/* TODO add message if no content and no retries */}
                 </>
             }
         </div>
