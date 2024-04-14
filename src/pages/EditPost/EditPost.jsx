@@ -98,7 +98,7 @@ export const EditPost = () => {
     }
 
     return (
-        <div>
+        <div className="edit-post-design">
             {errorMsg.message && 
                 <TimedPopupMsg
                     key={popCounter}
@@ -110,7 +110,12 @@ export const EditPost = () => {
             }
 
             <div className="edit-post-img-container">
-                <img src={post.image || "https://via.placeholder.com/150"} alt="Post Image" />
+                {/* <img src={post.image || "https://via.placeholder.com/150"} alt="Post Image" /> */}
+                <img 
+                    src={post.image} 
+                    onError={(e) => {e.target.onerror = null; e.target.src="../../../public/missing_post.jpg"}}
+                    alt="post image" 
+                />
             </div>
             <CInput
                 className="edit-post-input"

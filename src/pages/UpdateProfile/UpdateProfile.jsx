@@ -153,7 +153,7 @@ export const UpdateProfile = () => {
     }
 
     return (
-        <div>
+        <div className="update-profile-design">
             {errorMsg.message && 
                 <TimedPopupMsg
                     key={popupCounter}
@@ -164,10 +164,19 @@ export const UpdateProfile = () => {
                 />
             }
             <h1>Update Profile</h1>
-            <img src={updatedProfile.profilePicture} alt="not found" />
-            <UploadWidget 
-                onUploadSuccess={constructImageURL}
-            />
+            {/* <img src={updatedProfile.profilePicture} alt="not found" /> */}
+            <div className="edit-profile-img-container">
+                <img 
+                    src={updatedProfile.profilePicture} 
+                    onError={(e) => {e.target.onerror = null; e.target.src="../../../public/Missing_avatar.svg"}}
+                    alt="profile picture" 
+                />
+            </div>
+            <div className="upload-wrapper">
+                <UploadWidget 
+                    onUploadSuccess={constructImageURL}
+                />
+            </div>
             <div>
                 <p>name</p>
                 <CInput

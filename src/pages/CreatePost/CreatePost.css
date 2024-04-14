@@ -46,5 +46,6 @@
     padding-inline: 1rem;
     margin-inline: auto;
     border-radius: 0.5rem;
+    cursor: pointer;
 }
 
