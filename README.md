@@ -75,6 +75,8 @@ comming soon
 
 ## Features
 
+- Virtualized timeline: The home/timeline view is virtualized and auto-fetches more results when needed it. 
+
 - Sticky header for easy navigation in at all times. In mobile the header disapears when scrolling down but reapears as soon as you scroll up slightly.
 
 - Responsive design
