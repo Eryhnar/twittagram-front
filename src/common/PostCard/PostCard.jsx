@@ -3,10 +3,13 @@ import { timeSince } from "../../utils/timeSince";
 import { updateUser, userData } from "../../app/slices/userSlice";
 import { useEffect, useState } from "react";
 import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
+import { useNavigate } from "react-router-dom";
+import { saveDetails } from "../../app/slices/detailSlice";
 
 export const PostCard = ({ post, toggleLike, toggleSave}) => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [isOpenOptions, setIsOpenOptions] = useState(false);
 
@@ -90,6 +93,7 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
             {/* <h3>{post.author.userName}</h3> */}
             <div className="timeline-post-header">
                 <div className="timeline-post-author-img" onClick={() => {
+                    // console.log(post.author);
                     dispatch(saveDetails(post.author))
                     navigate("/profile");
                 }}>
@@ -106,7 +110,7 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
                 </div>
                 {/* <div>{post.createdAt}</div> */}
                 <div>{timeSince(new Date(post.createdAt))}</div>
-                {post.author === rdxUser.credentials.user.id &&
+                {post.author.userHandle === rdxUser.credentials.user.userHandle &&
                     <div onClick={() => setIsOpenOptions(true)}><span class="material-symbols-outlined">more_vert</span></div>
                 }
                 {isOpenOptions && 

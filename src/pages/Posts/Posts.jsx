@@ -100,8 +100,9 @@ export const Posts = () => {
     return (
         <div className="profile-posts-design">
             <>
-                {errorMsg.message &&
+                {errorMsg.message !== "" &&
                     <TimedPopupMsg
+                        key={popupCounter}
                         message={errorMsg.message}
                         success={errorMsg.success}
                         duration={5000}
@@ -109,6 +110,7 @@ export const Posts = () => {
                     />
                 }
                 {posts.length > 0 && posts.map((post) => (
+                    // console.log(post),
                     <div className="profile-posts" key={post._id}>
                         <PostCard
                             post={post}

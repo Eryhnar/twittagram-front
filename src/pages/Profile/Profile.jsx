@@ -128,8 +128,8 @@ export const Profile = () => {
                         return (
                             <div key={index} className="profile-post" onClick={() => {
                                 dispatch(saveDetails(profile.posts))
-                                console.log(profile.posts);
-                                console.log(`${profile.userHandle}/posts`);
+                                // console.log(profile.posts);
+                                // console.log(`${profile.userHandle}/posts`);
                                 navigate(`/${profile.userHandle}/posts`)
                             }}>
                                 <img src={post.image} alt="" />

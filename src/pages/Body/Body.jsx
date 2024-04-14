@@ -8,6 +8,7 @@ import { Admin } from '../Admin/Admin';
 import { Posts } from '../Posts/Posts';
 import { CreatePost } from '../CreatePost/CreatePost';
 import { UpdateProfile } from '../UpdateProfile/UpdateProfile';
+import { EditPost } from '../EditPost/EditPost';
 
 export const Body = () => {
     return (
@@ -40,6 +41,9 @@ export const Body = () => {
             <Route path="/:user/posts" element={<Posts />}/>
             <Route path="/update-profile" element={<SecureRoute protMode="allow-logged-in" />}>
                 <Route index element={<UpdateProfile />} />
+            </Route>
+            <Route path="/edit-post" element={<SecureRoute protMode="allow-logged-in" />}>
+                <Route index element={<EditPost />} />
             </Route>
             <Route path="*" element={<Navigate to={"/"} replace/>} />
         </Routes>
