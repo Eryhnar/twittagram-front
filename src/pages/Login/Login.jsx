@@ -55,7 +55,7 @@ export const Login = () => {
                 serverError: {message: response.message, success: response.success}
             }));
             setKey(prevState => prevState + 1);
-            console.log(response);
+            // console.log(response);
             const userCredentials = {
                 user: response.data.user,
                 token: response.data.token

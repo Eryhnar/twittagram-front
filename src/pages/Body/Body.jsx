@@ -9,6 +9,7 @@ import { Posts } from '../Posts/Posts';
 import { CreatePost } from '../CreatePost/CreatePost';
 import { UpdateProfile } from '../UpdateProfile/UpdateProfile';
 import { EditPost } from '../EditPost/EditPost';
+import { SavedPosts } from '../SavedPosts/SavedPosts';
 
 export const Body = () => {
     return (
@@ -44,6 +45,9 @@ export const Body = () => {
             </Route>
             <Route path="/edit-post" element={<SecureRoute protMode="allow-logged-in" />}>
                 <Route index element={<EditPost />} />
+            </Route>
+            <Route path="/saved" element={<SecureRoute protMode="allow-logged-in" />}>
+                <Route index element={<SavedPosts />} />
             </Route>
             <Route path="*" element={<Navigate to={"/"} replace/>} />
         </Routes>

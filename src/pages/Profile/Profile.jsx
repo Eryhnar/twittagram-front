@@ -110,11 +110,15 @@ export const Profile = () => {
                             <p>{profile.followers.length}Followers</p>
                             <p>{profile.following.length}Following</p>
                         </div>
+                        {/* {console.log(profile)} */}
                         <p>{profile.bio}</p>
                         <div className="profile-interactions">
                             {rdxUser.credentials.user.userHandle == profile.userHandle
                                 ?
-                                <div onClick={() => navigate("/update-profile")}>edit profile</div>
+                                <>
+                                    <div onClick={() => navigate("/update-profile")}>Edit Profile</div>
+                                    <div onClick={() => navigate("/saved")}>Saved</div>
+                                </>
                                 :
                                 <>
                                     <div onClick={() => toggleFollow(profile._id)}>{rdxUser.credentials.user.following.includes(profile._id) ? "unfollow" : "follow"}</div>
@@ -128,7 +132,7 @@ export const Profile = () => {
                     {profile.posts.map((post, index) => {
                         return (
                             <div key={index} className="profile-post" onClick={() => {
-                                dispatch(saveDetails(profile.posts))
+                                dispatch(saveDetails(profile.posts)) //TODO pass only profile._id as author id and refetch posts
                                 // console.log(profile.posts);
                                 // console.log(`${profile.userHandle}/posts`);
                                 navigate(`/${profile.userHandle}/posts`)
