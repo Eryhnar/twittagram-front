@@ -4,6 +4,7 @@
     align-items: center;
     flex-direction: column;
     position: relative;
+    background-color: black;
 }
 
 .edit-post-img-container {

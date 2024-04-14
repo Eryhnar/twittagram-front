@@ -28,7 +28,11 @@ export const Header = () => {
                             onClickFunction={() => createPost()}
                         /> */}
                         <NavButton
-                            title="+"
+                            className={"create-post-navbutton"}
+                            // title="+"
+                            title={<span class="material-symbols-outlined">
+                            add
+                            </span>}
                             path="/create-post"
                         />
                         {rdxUser.credentials.user.role.includes("admin") &&

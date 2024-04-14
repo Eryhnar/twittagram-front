@@ -10,8 +10,10 @@ import { detailData } from "../../app/slices/detailSlice"
 import "./EditPost.css"
 import { editPostService } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
+import { useNavigate } from "react-router-dom"
 
 export const EditPost = () => {
+    const navigate = useNavigate();
     const rdxUser = useSelector(userData);
     const rdxPost = useSelector(detailData)
     const post = rdxPost.details;
@@ -216,6 +218,11 @@ export const EditPost = () => {
                 title="Update"
                 onClickFunction={editPost}
             />
+            {/* <CButton
+                className="edit-post-button"
+                title="Cancel"
+                onClickFunction={() => navigate("/profile")}
+            /> */}
         </div>
     )
 }
