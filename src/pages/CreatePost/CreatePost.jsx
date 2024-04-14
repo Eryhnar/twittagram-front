@@ -136,7 +136,7 @@ export const CreatePost = () => {
     }
     
     return (
-        <div>
+        <div className="create-post-design">
             {errorMsg.message && 
                 <TimedPopupMsg
                     key={popCounter}
@@ -147,80 +147,82 @@ export const CreatePost = () => {
                 />
             }
 
-            <div className="create-post-img-container">
-                <img src={newPost.imageUrl || "https://via.placeholder.com/150"} alt="Post Image" />
-            </div>
-            <UploadWidget 
-                onUploadSuccess={constructImageURL}
-            />
-            <CInput
-                className="create-post-input"
-                type="text"
-                placeholder="Post Caption"
-                name="caption"
-                disabled=""
-                value={newPost.caption || ""}
-                onChangeFunction={handleInputChange}
-            />
-            <div className="create-post-tags">{newPost.tags}</div>
-            <CInput
-                className="create-post-input"
-                type="text"
-                placeholder="Tags"
-                name="tags"
-                disabled="disabled"
-                value={newPost.tags || ""}
-                onChangeFunction={handleInputChange}
-            />
-            <CButton 
-                className="create-post-button"
-                title="new tag"
-                onClickFunction={() => setIsNewTagOpen(true)}
-            />
-            {/* <CCard
-                className="create-post-card"
-                title="Post Preview"
-                content={newPost.caption}
-                image={newPost.imageUrl || "https://via.placeholder.com/150"}
-            /> */}
-            <div className={isNewTagOpen ? "create-post-popup" : "create-post-popup-hidden"}>
+            <div className="create-post-container">
+                <div className="create-post-img-container">
+                    <img src={newPost.imageUrl || "https://via.placeholder.com/150"} alt="Post Image" />
+                </div>
+                <UploadWidget
+                    onUploadSuccess={constructImageURL}
+                />
+                <CInput
+                    className="create-post-input"
+                    type="text"
+                    placeholder="Post Caption"
+                    name="caption"
+                    disabled=""
+                    value={newPost.caption || ""}
+                    onChangeFunction={handleInputChange}
+                />
+                <div className="create-post-tags">{newPost.tags}</div>
                 <CInput
                     className="create-post-input"
                     type="text"
                     placeholder="Tags"
                     name="tags"
-                    disabled=""
-                    value={newTag || ""}
-                    onChangeFunction={(e) => setNewTag(e.target.value)}
-                />
-                <CButton 
-                    className="create-post-button"
-                    title="create tag"
-                    onClickFunction={validateTag}
+                    disabled="disabled"
+                    value={newPost.tags || ""}
+                    onChangeFunction={handleInputChange}
                 />
                 <CButton
                     className="create-post-button"
-                    title="cancel"
-                    onClickFunction={() => setIsNewTagOpen(false)}
+                    title="new tag"
+                    onClickFunction={() => setIsNewTagOpen(true)}
+                />
+                {/* <CCard
+                    className="create-post-card"
+                    title="Post Preview"
+                    content={newPost.caption}
+                    image={newPost.imageUrl || "https://via.placeholder.com/150"}
+                /> */}
+                <div className={isNewTagOpen ? "create-post-popup" : "create-post-popup-hidden"}>
+                    <CInput
+                        className="create-post-input"
+                        type="text"
+                        placeholder="Tags"
+                        name="tags"
+                        disabled=""
+                        value={newTag || ""}
+                        onChangeFunction={(e) => setNewTag(e.target.value)}
+                    />
+                    <CButton
+                        className="create-post-button"
+                        title="create tag"
+                        onClickFunction={validateTag}
+                    />
+                    <CButton
+                        className="create-post-button"
+                        title="cancel"
+                        onClickFunction={() => setIsNewTagOpen(false)}
+                    />
+                </div>
+                <CDropdown
+                    buttonClass="create-post-dropdown"
+                    dropdownClass="create-post-dropdown-item"
+                    title="visibility"
+                    items={[
+                        {id: "public", name: "Public"},
+                        {id: "private", name: "Private"},
+                        {id: "friends", name: "Friends"},
+                    ]}
+                    onChangeFunction={handleInputChange}
+                    disabled=""
+                />
+                <CButton
+                    className="create-post-button"
+                    title="Post"
+                    onClickFunction={createPost}
                 />
             </div>
-            <CDropdown
-                buttonClass="create-post-dropdown"
-                dropdownClass="create-post-dropdown-item"
-                title="visibility"
-                items={[
-                    {id: "public", name: "Public"},
-                    {id: "private", name: "Private"},
-                    {id: "friends", name: "Friends"},
-                ]}
-                onChangeFunction={handleInputChange}
-                disabled=""
-            />
-            <CButton
-                className="create-post-button"
-                title="Post"
-                onClickFunction={createPost}
-            />
         </div>
     )
 }

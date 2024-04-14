@@ -99,25 +99,30 @@ export const Profile = () => {
             <>
                 <div className="profile-info-area">
                     <div className="profile-picture-container">
-                         <img src={profile.profilePicture} alt="" />
+                         {/* <img src={profile.profilePicture} alt="" /> */}
+                         <img 
+                            src={profile.profilePicture} 
+                            onError={(e) => {e.target.onerror = null; e.target.src="../../../public/Missing_avatar.svg"}}
+                            alt="profile image" 
+                        />
                     </div>
                     <div className="profile-info-text-area">
                         {/* <div></div>
                         <div></div> */}
                         <h1>{profile.userName}</h1>
                         <h3>{profile.userHandle}</h3>
+                        <p>{profile.bio}</p>
                         <div className="profile-metrics">
                             <p>{profile.followers.length}Followers</p>
                             <p>{profile.following.length}Following</p>
                         </div>
                         {/* {console.log(profile)} */}
-                        <p>{profile.bio}</p>
                         <div className="profile-interactions">
                             {rdxUser.credentials.user.userHandle == profile.userHandle
                                 ?
                                 <>
                                     <div onClick={() => navigate("/update-profile")}>Edit Profile</div>
-                                    <div onClick={() => navigate("/saved")}>Saved</div>
+                                    <div onClick={() => navigate("/saved")}>Saved Posts</div>
                                 </>
                                 :
                                 <>
@@ -140,7 +145,12 @@ export const Profile = () => {
                                 // console.log(`${profile.userHandle}/posts`);
                                 navigate(`/${profile.userHandle}/posts`)
                             }}>
-                                <img src={post.image} alt="" />
+                                {/* <img src={post.image} alt="" /> */}
+                                <img 
+                                    src={post.image} 
+                                    onError={(e) => {e.target.onerror = null; e.target.src="../../../public/missing_post.jpg"}}
+                                    alt="post image" 
+                                />
                             </div>
                         )
                     })}

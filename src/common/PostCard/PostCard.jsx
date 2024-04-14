@@ -6,6 +6,7 @@ import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { saveDetails } from "../../app/slices/detailSlice";
 import "./PostCard.css"
+import "../../../public/Missing_avatar.svg"
 
 export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPostId}) => {
     const rdxUser = useSelector(userData);
@@ -116,7 +117,12 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
                         dispatch(saveDetails(post.author))
                         navigate("/profile");
                     }}>
-                        <img src={post.author.profilePicture} alt="author image" />
+                        {/* <img src={post.author.profilePicture || "../../../public/Missing_avatar.svg"} alt="author image" /> */}
+                        <img 
+                            src={post.author.profilePicture} 
+                            onError={(e) => {e.target.onerror = null; e.target.src="../../../public/Missing_avatar.svg"}}
+                            alt="author image" 
+                        />
                     </div>
                     <div className="post-card-header-author-info">
                         <div onClick={() => {
@@ -163,7 +169,12 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
             <div className="post-card-img" onClick={() => {
                 dispatch(saveDetails(post))
             }}>
-                <img src={post.image} alt="post" />
+                {/* <img src={post.image} alt="post" /> */}
+                <img 
+                    src={post.image} 
+                    onError={(e) => {e.target.onerror = null; e.target.src="../../../public/missing_post.jpg"}}
+                    alt="post image" 
+                />
             </div>
             <div className="post-card-text">
                 <p>{post.caption}</p>
