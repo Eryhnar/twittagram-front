@@ -10,17 +10,18 @@ import { logout } from "../../app/slices/userSlice";
 import "./UpdateProfile.css"
 import { useNavigate } from "react-router-dom";
 import isValidPassword from "../../utils/isValidPassword";
+import { UploadWidget } from "../../common/UploadWidget/UploadWidget";
 
 export const UpdateProfile = () => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [updatedProfile, setUpdateProfile] = useState({
+    const [updatedProfile, setUpdatedProfile] = useState({
         userName: rdxUser.credentials.user.userName,
         bio: rdxUser.credentials.user.bio,
         // profilePicture: rdxUser.credentials.user.profilePicture
-        profilePicture: "https://upload.wikimedia.org/wikipedia/commons/1/15/Profile_placeholder.png"
+        profilePicture: rdxUser.credentials.user.profilePicture
     });
     const [errorMsg, setErrorMsg] = useState({
         message: "",
@@ -40,7 +41,7 @@ export const UpdateProfile = () => {
     });
 
     const inputHandler = (e) => {
-        setUpdateProfile((prevState) => ({
+        setUpdatedProfile((prevState) => ({
             ...prevState,
             [e.target.name]: e.target.value,
         }));
@@ -143,6 +144,14 @@ export const UpdateProfile = () => {
         }
     }
 
+    const constructImageURL = (publicId, fileExtension) => {
+        // const url = `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
+        setUpdatedProfile({
+            ...updatedProfile,
+            profilePicture: `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
+        })
+    }
+
     return (
         <div>
             {errorMsg.message && 
@@ -155,7 +164,10 @@ export const UpdateProfile = () => {
                 />
             }
             <h1>Update Profile</h1>
-            <img src={rdxUser.credentials.user.profilePicture} alt="not found" />
+            <img src={updatedProfile.profilePicture} alt="not found" />
+            <UploadWidget 
+                onUploadSuccess={constructImageURL}
+            />
             <div>
                 <p>name</p>
                 <CInput

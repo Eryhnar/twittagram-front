@@ -30,9 +30,9 @@ export const CreatePost = () => {
     });
     const [popCounter, setPopCounter] = useState(0);
 
-    useEffect(() => {
-        console.log("New Post: ", newPost);
-    }, [newPost])
+    // useEffect(() => {
+    //     console.log("New Post: ", newPost);
+    // }, [newPost])
 
     const constructImageURL = (publicId, fileExtension) => {
         const url = `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
