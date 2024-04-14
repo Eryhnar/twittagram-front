@@ -17,7 +17,7 @@ export const Posts = () => {
         success: false
     });
     const [popupCounter, setPopupCounter] = useState(0);
-    const [posts, setPosts] = useState(rdxDetails.details);
+    const [posts, setPosts] = useState(rdxDetails.details.posts);
 
         const toggleLike = async (post) => {
         // console.log(post._id);
@@ -131,7 +131,7 @@ export const Posts = () => {
                             toggleLike={toggleLike}
                             toggleSave={toggleSave}
                             deletePost={deletePost}
-                            clickedPostId={post._id}
+                            clickedPostId={rdxDetails.details.clickedPost}
                         />
                     </div>
                 ))}
