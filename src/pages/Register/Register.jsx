@@ -22,7 +22,7 @@ export const Register = () => {
         userNameError: "",
         emailError: "",
         passwordError: "",
-        serverError: {message: "", success: false}
+        serverError: { message: "", success: false }
     });
     const [key, setKey] = useState(0); // I DO NOT LIKE THIS
 
@@ -55,14 +55,14 @@ export const Register = () => {
             const response = await RegisterService(user);
             setErrorMsg(prevState => ({
                 ...prevState,
-                serverError: {message: response.message, success: response.success}
+                serverError: { message: response.message, success: response.success }
             }));
             setKey(prevState => prevState + 1);
             navigate("/login");
         } catch (error) {
             setErrorMsg(prevState => ({
                 ...prevState,
-                serverError: {message: error.message, success: false}
+                serverError: { message: error.message, success: false }
             }));
             setKey(prevState => prevState + 1);
         }
@@ -70,6 +70,21 @@ export const Register = () => {
 
     return (
         <div className="register-design">
+            {errorMsg.serverError.message !== "" && (
+                <TimedPopupMsg
+                    key={key}
+                    message={errorMsg.serverError.message}
+                    success={errorMsg.serverError.success}
+                    time={5000}
+                    resetServerError={() => setErrorMsg(prevState => ({
+                        ...prevState,
+                        serverError: {
+                            message: "",
+                            success: false
+                        }
+                    }))}
+                />
+            )}
 
             <CCard
                 className="register-card"
@@ -88,7 +103,7 @@ export const Register = () => {
                                     value={user.userName || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                <div className="info-button-wrapper"><InfoButton info={"Handle must be between 3 and 20 characters. Can contain lower case letters and numbers. Can contain . _ and - but not consecutively. "}/></div>
+                                <div className="info-button-wrapper"><InfoButton info={"Handle must be between 3 and 20 characters. Can contain lower case letters and numbers. Can contain . _ and - but not consecutively. "} /></div>
                             </div>
                             <div className={errorMsg.userNameError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.userNameError}</div>
 
@@ -121,7 +136,7 @@ export const Register = () => {
                                     value={user.password || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                <div className="info-button-wrapper"><InfoButton info={"Password must be between 8 and 16 character. Must contain a lower case letter, a capital letter and a number. Can contain . _ - but not consecutively."}/></div>
+                                <div className="info-button-wrapper"><InfoButton info={"Password must be between 8 and 16 character. Must contain a lower case letter, a capital letter and a number. Can contain . _ - but not consecutively."} /></div>
                             </div>
                             <div className={errorMsg.passwordError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.passwordError}</div>
                         </div>
@@ -134,21 +149,6 @@ export const Register = () => {
 
                             Already registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;to log in!
                         </div>
-                        {errorMsg.serverError.message !== "" && (
-                            <TimedPopupMsg 
-                                key={key}
-                                message={errorMsg.serverError.message} 
-                                success={errorMsg.serverError.success} 
-                                time={10000}
-                                resetServerError={() => setErrorMsg(prevState => ({
-                                    ...prevState, 
-                                    serverError: {
-                                        message: "", 
-                                        success: false
-                                    }
-                                }))}
-                            />
-                        )}
                     </div>
                 }
             />

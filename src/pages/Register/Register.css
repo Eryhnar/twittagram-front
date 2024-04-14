@@ -1,11 +1,19 @@
 .register-design {
     min-height: 90svh;
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+    /* background-color: blueviolet; */
+    position: relative;
 }
 
 .register-card {
-
+    padding-block: 2rem;
+    /* background-color: aliceblue; */
 }
 .register-card h2 {
+    padding-block: 1rem;
     /* margin: 0; */
 }
 
@@ -21,6 +29,7 @@
     /* place-content: center; */
     /* place-items: center; */
     /* background-color: violet; */
+    padding-block: 0.5rem;
 }
 
 .register-input-area {
@@ -64,6 +73,19 @@
 
 .register-empty-error {
     height: 1rem;
+}
+
+.register-button {
+    max-width: 7rem;
+    margin-inline: auto;
+    padding-block: 0.25rem;
+    /* padding-inline: 0.5rem; */
+    background-color: white;
+    color: black;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    margin-block: 0.5rem;
 }
 
 .register-redirect-text {

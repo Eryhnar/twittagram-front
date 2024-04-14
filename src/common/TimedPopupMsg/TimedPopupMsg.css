@@ -3,8 +3,10 @@
     color: black;
     border: 0.1rem solid black;
     z-index: 1;
-    position: sticky;
-    top: 10vh;
+    position: fixed;
+    top: 12vh;
+    /* left: 0vw; */
+    /* align-self: flex-end; */
 }
 
 .popup-timer-wrapper {

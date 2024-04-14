@@ -5,6 +5,9 @@
     border-radius: 50%;
     color: white;
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* .default-info-button:hover > .info-button-info {
