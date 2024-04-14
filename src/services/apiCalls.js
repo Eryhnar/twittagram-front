@@ -293,3 +293,27 @@ export const changePasswordService = async (token, password) => {
     }
     return parsedResponse;
 }
+
+export const editPostService = async (token, post) => {
+    const response = await fetch(root + "posts", {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            postId: post.postId,
+            visibility: post.visibility,
+            tags: post.tags,
+            caption: post.caption,
+        }),
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}
