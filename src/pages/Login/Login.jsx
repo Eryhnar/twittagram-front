@@ -125,6 +125,9 @@ export const Login = () => {
                             title={"Login"}
                             onClickFunction={loginUser}
                         />
+                        <div className="login-redirect-text">
+                            Not registered? Click&nbsp; <a href="/login" className="register-redirect-link">here</a> &nbsp;register!
+                        </div>
                     </div>
                 }
             />   
