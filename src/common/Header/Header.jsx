@@ -30,7 +30,7 @@ export const Header = () => {
                         <NavButton
                             className={"create-post-navbutton"}
                             // title="+"
-                            title={<span class="material-symbols-outlined">
+                            title={<span className="material-symbols-outlined">
                             add
                             </span>}
                             path="/create-post"
