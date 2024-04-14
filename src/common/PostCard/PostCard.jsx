@@ -13,21 +13,21 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
 
     const [isOpenOptions, setIsOpenOptions] = useState(false);
 
-    useEffect(() => { 
-        const closeMenu = () => {
-            setIsOpenOptions(false);
-        };
+    // useEffect(() => { 
+    //     const closeMenu = () => {
+    //         setIsOpenOptions(false);
+    //     };
     
-        if (isOpenOptions) {
-            document.addEventListener('mousedown', closeMenu);
-        } else {
-            document.removeEventListener('mousedown', closeMenu);
-        }
+    //     if (isOpenOptions) {
+    //         document.addEventListener('mousedown', closeMenu);
+    //     } else {
+    //         document.removeEventListener('mousedown', closeMenu);
+    //     }
     
-        return () => {
-            document.removeEventListener('mousedown', closeMenu);
-        };
-    }, [isOpenOptions]);
+    //     return () => {
+    //         document.removeEventListener('mousedown', closeMenu);
+    //     };
+    // }, [isOpenOptions]);
 
     // const toggleLike = async (post) => {
     //     // console.log(post._id);
@@ -111,7 +111,7 @@ export const PostCard = ({ post, toggleLike, toggleSave}) => {
                 {/* <div>{post.createdAt}</div> */}
                 <div>{timeSince(new Date(post.createdAt))}</div>
                 {post.author.userHandle === rdxUser.credentials.user.userHandle &&
-                    <div onClick={() => setIsOpenOptions(true)}><span class="material-symbols-outlined">more_vert</span></div>
+                    <div onClick={() => setIsOpenOptions(true)}><span className="material-symbols-outlined">more_vert</span></div>
                 }
                 {isOpenOptions && 
                     <div className="timeline-post-options">
