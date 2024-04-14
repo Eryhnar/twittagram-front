@@ -24,7 +24,8 @@ export const Profile = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // console.log(rdxDetail);
+        // console.log(rdxUser);
+        // console.log(rdxDetail.details.userHandle);
         // getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle)
         const fetchProfile = async () => {
             // console.log(rdxDetail.details);

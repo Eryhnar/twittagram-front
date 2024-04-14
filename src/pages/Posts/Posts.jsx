@@ -131,6 +131,7 @@ export const Posts = () => {
                             toggleLike={toggleLike}
                             toggleSave={toggleSave}
                             deletePost={deletePost}
+                            clickedPostId={post._id}
                         />
                     </div>
                 ))}

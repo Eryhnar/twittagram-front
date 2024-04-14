@@ -1,17 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
 import { timeSince } from "../../utils/timeSince";
 import { updateUser, userData } from "../../app/slices/userSlice";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { useNavigate } from "react-router-dom";
 import { saveDetails } from "../../app/slices/detailSlice";
 
-export const PostCard = ({ post, toggleLike, toggleSave, deletePost}) => {
+export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPostId}) => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const postRef = useRef(null);
 
     const [isOpenOptions, setIsOpenOptions] = useState(false);
+
+    useEffect(() => {
+        if (post._id === clickedPostId && postRef.current) {
+            postRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [clickedPostId]);
 
     // useEffect(() => { 
     //     const closeMenu = () => {
@@ -95,7 +102,7 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost}) => {
     // }
 
     return (
-        <div className="timeline-post">
+        <div className="timeline-post" ref={postRef}>
             {/* <div key={post._id} className="post" onClick={() => {
                                 console.log(post);
                                 dispatch(saveDetails({ details: post }));
