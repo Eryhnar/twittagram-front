@@ -43,7 +43,17 @@ export const Header = () => {
                         }
                         <div onClick={() => dispatch(saveDetails(rdxUser.credentials.user))}>
                             <NavButton
-                                title={<img src={rdxUser.credentials.user.profilePicture} alt="profile" className="profile-pic" />}
+                                title={
+                                // <img src={rdxUser.credentials.user.profilePicture} alt="profile" className="profile-pic" />
+                                <div className="header-profile-picture-container">
+
+                                    <img 
+                                    src={rdxUser.credentials.user.profilePicture} 
+                                    onError={(e) => {e.target.onerror = null; e.target.src="../../../public/Missing_avatar.svg"}}
+                                    alt="profile image" 
+                                    />
+                                </div>
+                            }
                                 // onClick={() => dispatch(saveDetails(rdxUser.credentials.user))}
                                 path="/profile"
                                 // onClick={() => console.log(rdxUser.credentials.user)}
