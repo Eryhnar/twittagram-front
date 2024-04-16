@@ -13,7 +13,6 @@
 
 .popup-timer-bar-failure,
 .popup-timer-bar-success {
-    background-color: green;
     height: 0.2rem;
 
     animation-name: timer;
