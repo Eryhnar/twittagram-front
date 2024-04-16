@@ -61,9 +61,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    /* top: calc(50% - 10rem); */
     top: 50%;
-    /* left: calc(50% - 10rem); */
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: gray;
@@ -92,9 +90,7 @@
     justify-content: center;
     align-items: center;
     position: absolute;
-    /* top: calc(50% - 10rem); */
     top: 50%;
-    /* left: calc(50% - 10rem); */
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: gray;

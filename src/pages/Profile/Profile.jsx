@@ -24,12 +24,7 @@ export const Profile = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        // console.log(rdxUser);
-        // console.log(rdxDetail.details.userHandle);
-        // getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle)
         const fetchProfile = async () => {
-            // console.log(rdxDetail.details);
-            // console.log(rdxUser.credentials);
             try {
                 const response = await getProfileService(rdxUser.credentials.token, rdxDetail.details.userHandle);
                 setProfile(response.data);
@@ -43,14 +38,11 @@ export const Profile = () => {
             }
         }
         rdxUser.credentials.token && retries > 0 ? fetchProfile() : setIsLoading(false);
-        // fetchProfile();
-    // }, [retries])
     }, [retries, rdxDetail.details.userHandle])
 
     const toggleFriend = async (id) => {
         try {
             const response = await toggleFriendService(rdxUser.credentials.token, id);
-            // console.log(response);
             dispatch(updateUser({
                 user: {
                     ...rdxUser.credentials.user,
@@ -64,16 +56,13 @@ export const Profile = () => {
 
     const toggleFollow = async (id) => {
         try {
-            console.log("hi");
             const response = await toggleFollowService(rdxUser.credentials.token, id);
-            console.log(response);
             dispatch(updateUser({
                 user: {
                     ...rdxUser.credentials.user,
                     following: response.data.following
                 }
             }));
-            console.log(rdxUser.credentials.user);
             setProfile({
                 ...profile,
                 followers: profile.followers.includes(rdxUser.credentials.user.id) 
@@ -99,7 +88,6 @@ export const Profile = () => {
             <>
                 <div className="profile-info-area">
                     <div className="profile-picture-container">
-                         {/* <img src={profile.profilePicture} alt="" /> */}
                          <img 
                             src={profile.profilePicture} 
                             onError={(e) => {e.target.onerror = null; e.target.src="../../../public/Missing_avatar.svg"}}
@@ -107,8 +95,6 @@ export const Profile = () => {
                         />
                     </div>
                     <div className="profile-info-text-area">
-                        {/* <div></div>
-                        <div></div> */}
                         <h1>{profile.userName}</h1>
                         <h3>{profile.userHandle}</h3>
                         <p>{profile.bio}</p>
@@ -116,7 +102,6 @@ export const Profile = () => {
                             <p>{profile.followers.length}Followers</p>
                             <p>{profile.following.length}Following</p>
                         </div>
-                        {/* {console.log(profile)} */}
                         <div className="profile-interactions">
                             {rdxUser.credentials.user.userHandle == profile.userHandle
                                 ?
@@ -141,11 +126,8 @@ export const Profile = () => {
                                     posts: profile.posts,
                                     clickedPost: post._id
                                 })) //TODO pass only profile._id as author id and refetch posts
-                                // console.log(profile.posts);
-                                // console.log(`${profile.userHandle}/posts`);
                                 navigate(`/${profile.userHandle}/posts`)
                             }}>
-                                {/* <img src={post.image} alt="" /> */}
                                 <img 
                                     src={post.image} 
                                     onError={(e) => {e.target.onerror = null; e.target.src="../../../public/missing_post.jpg"}}

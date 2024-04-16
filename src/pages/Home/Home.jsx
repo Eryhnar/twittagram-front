@@ -6,7 +6,6 @@ import { useState, useEffect } from "react";
 import { getTimelineService, toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { useNavigate } from "react-router-dom";
-import { timeSince } from "../../utils/timeSince";
 import { PostCard } from "../../common/PostCard/PostCard";
 import { Virtuoso } from "react-virtuoso";
 
@@ -43,36 +42,9 @@ export const Home = () => {
         fetchTimeline(page);
     }, [page]);
 
-    // useEffect(() => {
-    //     const fetchTimeline = async () => {
-    //         try {
-    //             const response = await getTimelineService(token, page);
-    //             setTimeline(response.data);
-    //             setRetries(3);
-    //             // console.log(response);
-    //         } catch (error) {
-    //             if (retries > 0) {
-    //                 setRetries(prevState => prevState - 1);
-    //             } else {
-    //                 setErrorMsg({ message: error.message, success: false });
-    //             }
-    //         }
-    //     }
-    //     token && retries > 0 ? fetchTimeline() : setIsLoading(false);
-    //     // if (token && retries > 0) {
-    //     //     fetchTimeline();
-    //     // } else {
-    //     //     setIsLoading(false);
-    //     // }
-    // }, [retries])
-
     const toggleLike = async (post) => {
-        // console.log(post._id);
         try {
             const response = await toggleLikeService(token, post._id);
-            // console.log(response);
-                // console.log(post.likes);
-                // setRetries(3);
                 setTimeline(timeline.map(item => 
                     item._id === post._id 
                         ? {
@@ -81,40 +53,27 @@ export const Home = () => {
                         } 
                         : item
                 ));
-                // console.log(post.likes);
         } catch (error) {
-            // if (retries > 0) {
-            //     setRetries(prevState => prevState - 1);
-            // } else {
-                setErrorMsg({ message: error.message, success: false });
-            // }
+            setErrorMsg({ message: error.message, success: false });
         }
     }
 
     const toggleSave = async (postId) => {
         try {
-            // console.log(postId);
-            // console.log(rdxUser.credentials.user);
-            // console.log(rdxUser.credentials.user.saved);
             const response = await toggleSaveService(token, postId);
-            // console.log(response);
-            // dispatch(updateUser({ token: rdxUser.credentials.token, user: response.data }));
             rdxUser.credentials.user.saved.includes(postId) 
             ? dispatch(updateUser({ 
-                // token: rdxUser.credentials.token,
                 user: {
                     ...rdxUser.credentials.user,
                     saved: rdxUser.credentials.user.saved.filter(id => id !== postId) 
                 }
             })) 
             : dispatch(updateUser({ 
-                // token: rdxUser.credentials.token,
                 user: {
                     ...rdxUser.credentials.user,
                     saved: [...rdxUser.credentials.user.saved, postId] 
                 }
             }));
-            // response.data.saved.includes(postId) ? console.log("saved") : console.log("unsaved");
 
         } catch (error) {
             if (retries > 0) {
@@ -157,7 +116,6 @@ export const Home = () => {
                             />
                         )}
                         style={{height: "90vh"}}
-                        // endReached={() => setPage(prevPage => prevPage + 1)}
                         endReached={async () => {
                             try {
                                 const response = await getTimelineService(token, page + 1);
@@ -175,16 +133,6 @@ export const Home = () => {
                             }
                         }}
                     />
-                    {/* {timeline.length > 0 && timeline.map((post) => (
-                        <div className="timeline-posts" key={post._id}>
-                            <PostCard
-                                post={post}
-                                toggleLike={toggleLike}
-                                toggleSave={toggleSave}
-                            />
-                        </div>
-                    ))} */}
-                    {/* TODO add message if no content and no retries */}
                 </>
             }
         </div>

@@ -4,12 +4,6 @@ import { useState, useEffect } from "react";
 export const TimedPopupMsg = ({ message, success, time, resetServerError}) => {
     const [isOpened, setIsOpened] = useState(true);
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setIsOpened(false);
-    //     }, time || 4000);
-    // })
-
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsOpened(false);

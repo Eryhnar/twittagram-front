@@ -1,26 +1,18 @@
 .login-design {
     min-height: 90svh;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
-    /* background-color: blueviolet; */
     position: relative;
     background-color: #333;
 }
 
 .login-card {
     padding-block: 2rem;
-    /* background-color: aliceblue; */
-    /* background-color: hsla(0, 0%, 70%, 0.199); */
 }
 
 .login-card h2 {
     padding-block: 1rem;
-}
-
-.login-inputs {
-
 }
 
 .login-field {
@@ -28,9 +20,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* place-content: center; */
-    /* place-items: center; */
-    /* background-color: violet; */
     padding-block: 0.5rem;
 }
 
@@ -74,7 +63,6 @@
     max-width: 7rem;
     margin-inline: auto;
     padding-block: 0.25rem;
-    /* padding-inline: 0.5rem; */
     background-color: white;
     color: black;
     border: none;

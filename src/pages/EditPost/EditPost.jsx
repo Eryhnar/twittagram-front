@@ -10,14 +10,11 @@ import { detailData } from "../../app/slices/detailSlice"
 import "./EditPost.css"
 import { editPostService } from "../../services/apiCalls"
 import { userData } from "../../app/slices/userSlice"
-import { useNavigate } from "react-router-dom"
 
 export const EditPost = () => {
-    const navigate = useNavigate();
     const rdxUser = useSelector(userData);
     const rdxPost = useSelector(detailData)
     const post = rdxPost.details;
-    // console.log("Post: ", post);
     const [newPost, setNewPost] = useState({
         caption: post.caption,
         tags: post.tags,
@@ -52,13 +49,6 @@ export const EditPost = () => {
             setNewTag("")
             setIsNewTagOpen(false)
         } else {
-            // setErrorMsg({
-            //     ...errorMsg,
-            //     serverError: {
-            //         message: "Invalid Tag",
-            //         success: false
-            //     }
-            // })
             setErrorMsg({
                 message: "Invalid Tag",
                 success: false
@@ -85,7 +75,6 @@ export const EditPost = () => {
                 return;
             }
             const response = await editPostService(rdxUser.credentials.token ,newPost);
-            console.log(response);
             setErrorMsg({
                 message: response.message,
                 success: response.success
@@ -112,7 +101,6 @@ export const EditPost = () => {
             }
 
             <div className="edit-post-img-container">
-                {/* <img src={post.image || "https://via.placeholder.com/150"} alt="Post Image" /> */}
                 <img 
                     src={post.image} 
                     onError={(e) => {e.target.onerror = null; e.target.src="../../../public/missing_post.jpg"}}
@@ -148,12 +136,6 @@ export const EditPost = () => {
                 title="new tag"
                 onClickFunction={() => setIsNewTagOpen(true)}
             />
-            {/* <CCard
-                className="create-post-card"
-                title="Post Preview"
-                content={newPost.caption}
-                image={newPost.imageUrl || "https://via.placeholder.com/150"}
-            /> */}
             {isEditTagsOpen &&
             <div className="edit-post-tags-popup">
                 {post.tags.map((tag, index) => (
@@ -218,11 +200,6 @@ export const EditPost = () => {
                 title="Update"
                 onClickFunction={editPost}
             />
-            {/* <CButton
-                className="edit-post-button"
-                title="Cancel"
-                onClickFunction={() => navigate("/profile")}
-            /> */}
         </div>
     )
 }

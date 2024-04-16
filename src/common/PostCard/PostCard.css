@@ -12,13 +12,11 @@
 }
 
 .post-card-header {
-    /* width: 80vw; */
     width: 90%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* margin-inline: auto; */
     padding-inline: 5%;
     background-color: black;
     color: white;
@@ -58,7 +56,6 @@
 }
 
 .post-card-img {
-    /* max-width: 40vw; */
     max-width: 80%;
     margin-block: 1rem;
 }
@@ -68,13 +65,9 @@
     width: 100%;
 }
 
-.post-card-text {
-}
-
 .post-card-text p {
     padding-block: 1rem;
     padding-inline: 2rem;
-    /* background-color: darkorange; */
 }
 
 .post-card-text div{
@@ -88,7 +81,6 @@
     flex-direction: row;
     justify-content: space-between;
     padding-bottom: 0.5rem;
-    /* background-color: turquoise; */
 }
 
 .post-interaction-buttons {

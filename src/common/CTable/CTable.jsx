@@ -29,14 +29,8 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
         <table className="default-custom-table-design">
             <thead>
                 <tr>
-                    {/* <th>Id</th>
-                    <th>Username</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                    <th>Actions</th> */}
-
                     {columns.map((column) => (
-                        <th key={column.accessor}>{column.Header}</th> //no accessor???
+                        <th key={column.accessor}>{column.Header}</th>
                     ))}
                     <th key="button1">save</th>
                     <th key="button2">delete</th>
@@ -46,10 +40,6 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
             <tbody>
                 {data.map((entry) => (
                     <tr key={entry._id}>
-                        {/* <td>{entry._id}</td>
-                        <td>{entry.username}</td>
-                        <td>{entry.email}</td>
-                        <td>{entry.role}</td> */}
                         {columns.map((column) => (
                             <td key={column.accessor}>
                                 <CInput
@@ -63,17 +53,6 @@ export const CTable = ({ data, saveChanges, deleteEntry }) => {
                                 />
                             </td>
                         ))}
-                        {/* <td>
-                            <CInput
-                                className={isEditing ? "CTable-input-edit" : "CTable-input"}
-                                type="text"
-                                placeholder={field}
-                                name={field}
-                                disabled={!isEditing ? "disabled" : ""}
-                                value={editedData[field] || ""}
-                                onChangeFunction={(e) => inputHandler(e)}
-                            />
-                        </td> */}
                         <td>
                             <button onClick={() => saveChanges(entry)}>Save</button>
                             <button onClick={() => deleteEntry(entry)}>Delete</button>

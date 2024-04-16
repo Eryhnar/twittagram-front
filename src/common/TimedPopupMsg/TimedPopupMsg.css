@@ -5,8 +5,6 @@
     z-index: 1;
     position: fixed;
     top: 12vh;
-    /* left: 0vw; */
-    /* align-self: flex-end; */
 }
 
 .popup-timer-wrapper {

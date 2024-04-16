@@ -19,7 +19,6 @@ export const SavedPosts = () => {
         const getSavedPosts = async () => {
             try {
                 const response = await savedPostsService(rdxUser.credentials.token);
-                console.log(response.data);
                 setPosts(response.data);
             } catch (error) {
                 if (retries > 0) {
@@ -33,12 +32,8 @@ export const SavedPosts = () => {
     }, [retries, rdxUser.credentials.token])
 
     const toggleLike = async (post) => {
-        // console.log(post._id);
         try {
             const response = await toggleLikeService(token, post._id);
-            // console.log(response);
-            // console.log(post.likes);
-            // setRetries(3);
             setPosts(posts.map(item =>
                 item._id === post._id
                     ? {
@@ -47,41 +42,28 @@ export const SavedPosts = () => {
                     }
                     : item
             ));
-            // console.log(post.likes);
         } catch (error) {
-            // if (retries > 0) {
-            //     setRetries(prevState => prevState - 1);
-            // } else {
             setErrorMsg({ message: error.message, success: false });
             setPopupCounter(prevState => prevState + 1);
-            // }
         }
     }
 
     const toggleSave = async (postId) => {
         try {
-            // console.log(postId);
-            // console.log(rdxUser.credentials.user);
-            // console.log(rdxUser.credentials.user.saved);
             const response = await toggleSaveService(token, postId);
-            // console.log(response);
-            // dispatch(updateUser({ token: rdxUser.credentials.token, user: response.data }));
             rdxUser.credentials.user.saved.includes(postId)
                 ? dispatch(updateUser({
-                    // token: rdxUser.credentials.token,
                     user: {
                         ...rdxUser.credentials.user,
                         saved: rdxUser.credentials.user.saved.filter(id => id !== postId)
                     }
                 }))
                 : dispatch(updateUser({
-                    // token: rdxUser.credentials.token,
                     user: {
                         ...rdxUser.credentials.user,
                         saved: [...rdxUser.credentials.user.saved, postId]
                     }
                 }));
-            // response.data.saved.includes(postId) ? console.log("saved") : console.log("unsaved");
 
         } catch (error) {
             setErrorMsg({ message: error.message, success: false });
@@ -90,8 +72,6 @@ export const SavedPosts = () => {
     }
 
     const deletePost = async (post) => {
-        // console.log(post._id);
-        // console.log(post);
         try {
             if (post.author.userHandle === rdxUser.credentials.user.userHandle) {
                 const response = await deletePostService(rdxUser.credentials.token, post._id)
@@ -115,7 +95,6 @@ export const SavedPosts = () => {
                 />
             }
             {posts.length > 0 && posts.map((post) => (
-                    // console.log(post),
                     <div className="saved-posts" key={post._id}>
                         <PostCard
                             post={post}

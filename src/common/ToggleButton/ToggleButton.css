@@ -6,7 +6,6 @@
     background-color: rgb(226, 226, 226);
     border-radius: 1rem;
     border: 0.25rem solid black;
-    /* transition: ease 0.5s; */
 }
 .default-toggle-rail-active {
     display: flex;

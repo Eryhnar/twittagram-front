@@ -120,7 +120,6 @@ export const Register = () => {
                                     value={user.email || ""}
                                     onChangeFunction={(e) => inputHandler(e)}
                                 />
-                                {/* <div className="info-button-wrapper"><InfoButton/></div> */}
                             </div>
                             <div className={errorMsg.emailError ? "register-field-error-msg" : "register-empty-error"}>{errorMsg.emailError}</div>
                         </div>

@@ -16,7 +16,6 @@ export const UploadWidget = ({ onUploadSuccess }) => {
                 if (!error && result.info.public_id) {
                     onUploadSuccess(result.info.public_id, result.info.format);
                     setIsOpen(false);
-                    // console.log("Done! Here is the image info: ", result.info);
                 } else if (error){
                     throw new Error("Error uploading image: ", error);
                 }
@@ -26,8 +25,6 @@ export const UploadWidget = ({ onUploadSuccess }) => {
         return () => {
             if (widgetRef.current) {
                 widgetRef.current.close();
-                // widgetRef.current = null;
-                // setIsOpen(false);
             }
         }
     }, [isOpen]);

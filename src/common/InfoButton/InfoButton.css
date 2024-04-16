@@ -10,18 +10,12 @@
     align-items: center;
 }
 
-/* .default-info-button:hover > .info-button-info {
-    display: block;
-} */
-
 .info-button-info {
-    /* display: none; */
     position: absolute;
     top:50%;
     right: calc(50% + 1rem);
     background-color: white;
     color: black;
-    /* border: 0.1rem solid black; */
     border-radius: 0.5rem;
     padding: 0.5rem;
     width: 10rem;
