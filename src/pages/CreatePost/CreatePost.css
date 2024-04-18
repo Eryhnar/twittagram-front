@@ -1,10 +1,8 @@
 .create-post-design {
     min-height: 90svh;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
     flex-direction: column;
-    /* background-color: blueviolet; */
     position: relative;
     background-color: #333;
 }

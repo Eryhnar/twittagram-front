@@ -25,7 +25,6 @@ export const SideNav = () => {
             }
                 path="/search"
             />
-            {/* messages */}
             <NavButton title={
                 <>
                     Messages
@@ -36,7 +35,6 @@ export const SideNav = () => {
             }
                 path="/messages"
             />
-            {/* saved */}
             <NavButton title={
                 <>
                     Saved
@@ -47,7 +45,6 @@ export const SideNav = () => {
             }
                 path="/saved"
             />
-            {/* my posts */}
             <NavButton title={
                 <>
                     My Posts
@@ -58,7 +55,6 @@ export const SideNav = () => {
             }
                 path="/myposts"
             />
-            {/* profile */}
             <NavButton title={
                 <>
                     Profile

@@ -18,12 +18,7 @@ export const userSlice = createSlice({
                 ...action.payload
             }
         },
-        //   updateUser: (state, action) => {
-        //     return {
-        //       ...state,
-        //       ...action.payload
-        //     }
-        //   }
+        
         updateUser: (state, action) => {
             state.credentials = {
                 ...state.credentials,

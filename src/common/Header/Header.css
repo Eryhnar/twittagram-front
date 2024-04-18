@@ -3,7 +3,6 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    /* padding: 0; */
     background-color: black;
     color: white;
 
@@ -14,11 +13,24 @@
     padding-inline: 1rem;
 }
 
+.header-profile-picture-container {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+}
+
+.header-profile-picture-container img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    display: block;
+
+}
+
 .profile-pic {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
-    /* margin: 0.5rem; */
 }
 
 .create-post-navbutton {
@@ -27,7 +39,6 @@
     align-items: center;
 
     cursor: pointer;
-    /* padding-inline: 0.5rem; */
     border: 1px solid white;
     border-radius: 1rem;
 }

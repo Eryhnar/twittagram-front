@@ -4,7 +4,6 @@ import "./CreatePost.css";
 import { CInput } from "../../common/CInput/CInput";
 import { CDropdown } from "../../common/CDropdown/CDropdown";
 import { CButton } from "../../common/CButton/CButton";
-import { CCard } from "../../common/CCard/CCard";
 import processTag from "../../utils/processTag";
 import isValidHashtag from "../../utils/isValidHashtag";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
@@ -13,7 +12,6 @@ import { useSelector } from "react-redux";
 import { userData } from "../../app/slices/userSlice";
 
 export const CreatePost = () => {
-    // const [imageUrl, setImageUrl] = useState("");
     const rdxUser = useSelector(userData);
     const [newPost, setNewPost] = useState({
         imageUrl: "",
@@ -25,14 +23,8 @@ export const CreatePost = () => {
     const [newTag, setNewTag] = useState("");
     const [errorMsg, setErrorMsg] = useState({
         serverError: {message: "", success: false},
-        // imageError: "", //TODO check if needed
-        // visibilityError: "", //TODO check if needed
     });
     const [popCounter, setPopCounter] = useState(0);
-
-    // useEffect(() => {
-    //     console.log("New Post: ", newPost);
-    // }, [newPost])
 
     const constructImageURL = (publicId, fileExtension) => {
         const url = `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
@@ -40,12 +32,7 @@ export const CreatePost = () => {
             ...newPost,
             imageUrl: `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
         })
-        // return url;
     }
-
-    // useEffect(() => {
-    //     console.log("Image URL: ", imageUrl);
-    // }, [imageUrl])
 
     const handleInputChange = (e) => {
         setNewPost({
@@ -54,18 +41,6 @@ export const CreatePost = () => {
         })
         setPopCounter(prevState => prevState + 1);
     }
-    // const handleTagChange = (e) => {
-    //     setNewTag(e.target.value);
-    // }
-
-    // const processTag = (tag) => {
-    //     tag = tag.replace(/\s/g, "");
-    
-    //     if (tag[0] !== "#") {
-    //         return "#" + tag.toLowerCase();
-    //     }
-    //     return tag.toLowerCase();
-    // }
 
     const verifyPost = (post) => {
         if (post.imageUrl === "") {
@@ -120,13 +95,7 @@ export const CreatePost = () => {
             setNewTag("")
             setIsNewTagOpen(false)
         } else {
-            // setErrorMsg({
-            //     ...errorMsg,
-            //     serverError: {
-            //         message: "Invalid Tag",
-            //         success: false
-            //     }
-            // })
+
             setErrorMsg({
                 message: "Invalid Tag",
                 success: false
@@ -178,12 +147,7 @@ export const CreatePost = () => {
                     title="new tag"
                     onClickFunction={() => setIsNewTagOpen(true)}
                 />
-                {/* <CCard
-                    className="create-post-card"
-                    title="Post Preview"
-                    content={newPost.caption}
-                    image={newPost.imageUrl || "https://via.placeholder.com/150"}
-                /> */}
+
                 <div className={isNewTagOpen ? "create-post-popup" : "create-post-popup-hidden"}>
                     <CInput
                         className="create-post-input"

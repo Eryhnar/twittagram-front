@@ -21,12 +21,10 @@ export const Admin = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                console.log(dataType);
                 const response = await getData(dataType);
                 setData(response.data);
                 setRetries(3);
                 setIsLoading(false);
-                console.log(response.data);
             } catch (error) {
                 if (retries > 0) {
                     setRetries(prevState => prevState - 1);

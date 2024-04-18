@@ -44,8 +44,8 @@ export const LoginService = async (credentials) => {
     return parsedResponse;
 }
 
-export const getTimelineService = async (token) => {
-    const response = await fetch(root + "posts/timeline", {
+export const getTimelineService = async (token, page) => {
+    const response = await fetch(root + `posts/timeline/?page=${page}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

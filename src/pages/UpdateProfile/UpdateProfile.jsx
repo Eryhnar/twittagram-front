@@ -20,7 +20,6 @@ export const UpdateProfile = () => {
     const [updatedProfile, setUpdatedProfile] = useState({
         userName: rdxUser.credentials.user.userName,
         bio: rdxUser.credentials.user.bio,
-        // profilePicture: rdxUser.credentials.user.profilePicture
         profilePicture: rdxUser.credentials.user.profilePicture
     });
     const [errorMsg, setErrorMsg] = useState({
@@ -63,9 +62,7 @@ export const UpdateProfile = () => {
 
     const updateProfile = async () => {
         try {
-            console.log(updatedProfile);
             const response = await updateProfileService(rdxUser.credentials.token, updatedProfile);
-            console.log(response);
             dispatch(updateUser({
                 user: {
                     ...rdxUser.credentials.user,
@@ -107,7 +104,6 @@ export const UpdateProfile = () => {
             }
 
             const response = await suspendAccountService(rdxUser.credentials.token, suspendCredentials.password);
-            console.log(response);
             dispatch(logout({ credentials: "" }));
         } catch (error) {
             setErrorMsg({ 
@@ -121,7 +117,6 @@ export const UpdateProfile = () => {
 
 
     const changePassword = async () => {
-        console.log(password);
         try {
             if (password.newPassword !== password.confirmPassword) { 
                 throw new Error("Passwords do not match");
@@ -134,7 +129,6 @@ export const UpdateProfile = () => {
                 message: response.message,
                 success: true
             });
-            console.log(response);
         } catch (error) {
             setErrorMsg({ 
                 message: error.message, 
@@ -145,7 +139,6 @@ export const UpdateProfile = () => {
     }
 
     const constructImageURL = (publicId, fileExtension) => {
-        // const url = `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
         setUpdatedProfile({
             ...updatedProfile,
             profilePicture: `https://res.cloudinary.com/dib7jxktr/image/upload/${publicId}.${fileExtension}`
@@ -164,7 +157,6 @@ export const UpdateProfile = () => {
                 />
             }
             <h1>Update Profile</h1>
-            {/* <img src={updatedProfile.profilePicture} alt="not found" /> */}
             <div className="edit-profile-img-container">
                 <img 
                     src={updatedProfile.profilePicture} 
