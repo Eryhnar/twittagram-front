@@ -6,14 +6,16 @@ import { useNavigate } from "react-router-dom";
 import { saveDetails } from "../../app/slices/detailSlice";
 import "./PostCard.css"
 import "../../../public/Missing_avatar.svg"
+import { CommentsPopup } from "../CommentsPopup/CommentsPopup";
 
-export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPostId}) => {
+export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPostId, setClickedPost }) => {
     const rdxUser = useSelector(userData);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const postRef = useRef(null);
 
     const [isOpenOptions, setIsOpenOptions] = useState(false);
+    // const [isOpenComments, setIsOpenComments] = useState(false);
 
     useEffect(() => {
         if (post._id === clickedPostId && postRef.current) {
@@ -85,7 +87,7 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
                     </div>
                 </div>
                 <div className="post-comment-container">
-                    <div><span className="material-symbols-outlined">add_comment</span></div>
+                    <div onClick={() => setClickedPost(post._id)}><span className="material-symbols-outlined">add_comment</span></div>
                     <div className="post-interaction-statistics">
                         <div>comments</div>
                     </div>
@@ -94,6 +96,9 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
                 <div onClick={() => toggleSave(post._id)}><span className={`material-symbols-outlined ${rdxUser.credentials.user.saved.includes(post._id) ? "saved" : null}`}>bookmark</span></div>
                 </div>
             </div>
+            {/* {isOpenComments && 
+                <CommentsPopup postId={post._id} closePopup={() => setIsOpenComments(false)} />
+            } */}
         </div>
     )
 }

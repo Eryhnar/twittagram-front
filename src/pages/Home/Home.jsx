@@ -8,6 +8,7 @@ import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../common/PostCard/PostCard";
 import { Virtuoso } from "react-virtuoso";
+import { CommentsPopup } from "../../common/CommentsPopup/CommentsPopup";
 
 export const Home = () => {
     const rdxUser = useSelector(userData);
@@ -23,6 +24,9 @@ export const Home = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [timeline, setTimeline] = useState([]);
     const [page, setPage] = useState(1);
+
+    // const [isOpenComments, setIsOpenComments] = useState(false);
+    const [clickedPost, setClickedPost] = useState(null);
 
     const fetchTimeline = async (page) => {
         try {
@@ -106,6 +110,9 @@ export const Home = () => {
                             resetServerError={() => setErrorMsg({ message: "", success: false })}
                         />
                     }
+                    {clickedPost &&
+                        <CommentsPopup postId={clickedPost} closePopup={() => setClickedPost(null)} />
+                    }
                     <Virtuoso
                         data={timeline}
                         itemContent={(_, post) => (
@@ -113,6 +120,7 @@ export const Home = () => {
                                 post={post}
                                 toggleLike={toggleLike}
                                 toggleSave={toggleSave}
+                                setClickedPost={setClickedPost}
                             />
                         )}
                         style={{height: "90vh"}}
