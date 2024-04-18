@@ -353,3 +353,21 @@ export const savedPostsService = async (token) => {
     }
     return parsedResponse;
 }
+
+export const getPostCommentsService = async (token, postId, page=1) => {
+    const response = await fetch(root + `comments/${postId}?page=${page}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+    });
+    const parsedResponse = await response.json();
+    if (response.status === 404) {
+        throw new Error("Could not connect to server");
+    }
+    if (response.status !== 200) {
+        throw new Error(parsedResponse.message);
+    }
+    return parsedResponse;
+}

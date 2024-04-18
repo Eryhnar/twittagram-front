@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateUser, userData } from "../../app/slices/userSlice";
 import { TimedPopupMsg } from "../../common/TimedPopupMsg/TimedPopupMsg";
 import { useState, useEffect } from "react";
-import { getTimelineService, toggleLikeService, toggleSaveService } from "../../services/apiCalls";
+import { getPostCommentsService, getTimelineService, toggleLikeService, toggleSaveService } from "../../services/apiCalls";
 import { detailData, saveDetails } from "../../app/slices/detailSlice";
 import { useNavigate } from "react-router-dom";
 import { PostCard } from "../../common/PostCard/PostCard";
@@ -45,6 +45,21 @@ export const Home = () => {
     useEffect(() => {
         fetchTimeline(page);
     }, [page]);
+
+    // useEffect(() => {
+        const fetchPostComments = async () => {
+            try {
+                const response = await getPostCommentsService(token, clickedPost);
+                console.log(response);    
+                return response.data;            
+            } catch (error) {
+                setErrorMsg({ message: error.message, success: false });
+            }
+        }
+        // if (clickedPost) {
+        //     fetchPostComments();
+        // }
+    // }, [clickedPost])
 
     const toggleLike = async (post) => {
         try {
@@ -111,7 +126,7 @@ export const Home = () => {
                         />
                     }
                     {clickedPost &&
-                        <CommentsPopup postId={clickedPost} closePopup={() => setClickedPost(null)} />
+                        <CommentsPopup postId={clickedPost} closePopup={() => setClickedPost(null)} fetchComments={fetchPostComments}/>
                     }
                     <Virtuoso
                         data={timeline}
