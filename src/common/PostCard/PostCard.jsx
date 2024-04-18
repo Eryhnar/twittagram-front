@@ -19,7 +19,8 @@ export const PostCard = ({ post, toggleLike, toggleSave, deletePost, clickedPost
 
     useEffect(() => {
         if (post._id === clickedPostId && postRef.current) {
-            postRef.current.scrollIntoView({ behavior: 'smooth' });
+            postRef.current.scrollIntoView();
+            window.scrollBy(0, -window.innerHeight * 0.1)
         }
     }, [clickedPostId]);
 

@@ -32,7 +32,8 @@ export const CommentsPopup = ({ postId, closePopup, fetchComments }) => {
                             {/* <div>{comment.author.userHandle}</div> */}
                         </div>
                         <div className="comment-time">{timeSince(new Date(comment.createdAt))}</div>
-                        <h1>{comment.author}</h1>
+                        <h1>{comment.author.userName}</h1>
+                        <h2>{comment.author.userHandle}</h2>
                         <div className="comment-text">{comment.content}</div>
                     </div>
                 )}
